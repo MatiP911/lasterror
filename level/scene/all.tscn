@@ -12,26 +12,26 @@ script = ExtResource("1_8p621")
 texture = ExtResource("2_nt2wp")
 centered = false
 
-[node name="Bomb1" type="Area2D" parent="."]
-position = Vector2(2, 10)
-metadata/_edit_group_ = true
-
-[node name="Bomb1Collision" type="CollisionPolygon2D" parent="Bomb1"]
-position = Vector2(-270, -1)
-polygon = PackedVector2Array(643, 367, 452, 398, 434, 336, 434, 288, 598, 271, 641, 319)
-
-[node name="Bomb1" type="Sprite2D" parent="Bomb1"]
-position = Vector2(326, 230)
-texture = ExtResource("4_14vog")
-
 [node name="Bomb2" type="Area2D" parent="."]
 position = Vector2(2, 10)
 metadata/_edit_group_ = true
 
-[node name="Bomb2Collision" type="CollisionPolygon2D" parent="Bomb2"]
+[node name="Collision" type="CollisionPolygon2D" parent="Bomb2"]
+position = Vector2(-270, -1)
+polygon = PackedVector2Array(643, 367, 452, 398, 434, 336, 434, 288, 598, 271, 641, 319)
+
+[node name="Sprite" type="Sprite2D" parent="Bomb2"]
+position = Vector2(326, 230)
+texture = ExtResource("4_14vog")
+
+[node name="Bomb1" type="Area2D" parent="."]
+position = Vector2(2, 10)
+metadata/_edit_group_ = true
+
+[node name="Collision" type="CollisionPolygon2D" parent="Bomb1"]
 position = Vector2(-270, -1)
 polygon = PackedVector2Array(725, 370, 817, 386, 821, 352, 829, 302, 750, 290, 723, 337)
 
-[node name="Bomb2" type="Sprite2D" parent="Bomb2"]
+[node name="Sprite" type="Sprite2D" parent="Bomb1"]
 position = Vector2(326, 230)
 texture = ExtResource("5_w1u2o")
