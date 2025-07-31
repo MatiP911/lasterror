@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg7x61rqnlr7e"]
+[gd_scene load_steps=2 format=3 uid="uid://dquqluffbtt54"]
 
-[ext_resource type="Script" uid="uid://cktfso7ct82vu" path="res://code/scripts/Main.cs" id="1_414cb"]
+[sub_resource type="CSharpScript" id="CSharpScript_530py"]
+script/source = "using Godot;
+using System;
 
-[node name="Node2D" type="Node2D"]
-script = ExtResource("1_414cb")
+public partial class Main : Node2D
+{
+}
+"
+
+[node name="Main" type="Node2D"]
+script = SubResource("CSharpScript_530py")
+
+[node name="sceneContainer" type="Node2D" parent="."]

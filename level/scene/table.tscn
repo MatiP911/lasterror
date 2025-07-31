@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://doiru2y5bbllm"]
+
+[ext_resource type="Script" uid="uid://c41nxx0b2lodm" path="res://code/scripts/Table.cs" id="1_5sflg"]
+[ext_resource type="Texture2D" uid="uid://cspmdkxhkrowu" path="res://art/bg-table.png" id="1_ma0er"]
+
+[node name="table" type="Node2D"]
+script = ExtResource("1_5sflg")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_ma0er")
+centered = false
