@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cg7x61rqnlr7e"]
+[gd_scene load_steps=6 format=3 uid="uid://cg7x61rqnlr7e"]
 
 [ext_resource type="Script" uid="uid://cpfo0xfsshghm" path="res://code/scripts/all.gd" id="1_8p621"]
 [ext_resource type="Texture2D" uid="uid://o1ob63xj3mrd" path="res://art/bg-all.png" id="2_nt2wp"]
+[ext_resource type="Script" uid="uid://cn7lgtedgj2yi" path="res://code/scripts/bomb_1.gd" id="3_14vog"]
 [ext_resource type="Texture2D" uid="uid://dqcp2uy13ap16" path="res://art/bomb1.png" id="4_14vog"]
 [ext_resource type="Texture2D" uid="uid://d2bgx267rbd2u" path="res://art/bomb2.png" id="5_w1u2o"]
 
@@ -14,6 +15,7 @@ centered = false
 
 [node name="Bomb1" type="Area2D" parent="."]
 position = Vector2(2, 10)
+script = ExtResource("3_14vog")
 metadata/_edit_group_ = true
 
 [node name="Bomb1Collision" type="CollisionPolygon2D" parent="Bomb1"]
@@ -26,6 +28,7 @@ texture = ExtResource("4_14vog")
 
 [node name="Bomb2" type="Area2D" parent="."]
 position = Vector2(2, 10)
+script = ExtResource("3_14vog")
 metadata/_edit_group_ = true
 
 [node name="Bomb2Collision" type="CollisionPolygon2D" parent="Bomb2"]

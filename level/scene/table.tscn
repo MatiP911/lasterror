@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://doiru2y5bbllm"]
+[gd_scene load_steps=4 format=3 uid="uid://doiru2y5bbllm"]
 
-[ext_resource type="Script" uid="uid://c41nxx0b2lodm" path="res://code/scripts/Table.cs" id="1_5sflg"]
+[ext_resource type="Script" uid="uid://ccqwyhjgu8mth" path="res://code/scripts/table.gd" id="1_5sflg"]
 [ext_resource type="Texture2D" uid="uid://cspmdkxhkrowu" path="res://art/bg-table.png" id="1_ma0er"]
+[ext_resource type="PackedScene" uid="uid://bgj5tmuvn154g" path="res://level/object/bomb1.tscn" id="3_5sflg"]
 
 [node name="table" type="Node2D"]
 script = ExtResource("1_5sflg")
@@ -9,3 +10,6 @@ script = ExtResource("1_5sflg")
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_ma0er")
 centered = false
+
+[node name="Bomb1" parent="." instance=ExtResource("3_5sflg")]
+position = Vector2(350, 228)
