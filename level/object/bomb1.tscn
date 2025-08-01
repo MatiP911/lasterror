@@ -316,8 +316,9 @@ animations = [{
 [node name="Bomb1" type="Node2D"]
 script = ExtResource("1_j7fs1")
 metadata/_edit_group_ = true
+metadata/_edit_vertical_guides_ = [-366.0]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Bomba" type="Sprite2D" parent="."]
 texture = ExtResource("1_aafb6")
 metadata/_edit_group_ = true
 

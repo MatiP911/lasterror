@@ -4,7 +4,7 @@ extends Node2D
 
 var timerEnable = true
 
-var puzzle1Rotor = 1
+var puzzle1RotorPos = 1
 var defuseCheckList = [
 	"timercable1",
 	"puzzle1Cable1",
@@ -76,20 +76,20 @@ func checkTime() -> void:
 func puzzle1RotorClick(viewport, event, shape_idx) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			puzzle1Rotor=(puzzle1Rotor+1)%3
+			puzzle1RotorPos=(puzzle1RotorPos+1)%3
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			if puzzle1Rotor == 0:
-				puzzle1Rotor = 2
+			if puzzle1RotorPos == 0:
+				puzzle1RotorPos = 2
 			else:
-				puzzle1Rotor=(puzzle1Rotor-1)%3
+				puzzle1RotorPos=(puzzle1RotorPos-1)%3
 		else: 
 			return
 		print("Rotor")
-		if puzzle1Rotor==0:
+		if puzzle1RotorPos==0:
 			$Puzzle1/Rotor/Sprite.rotation_degrees = -48.0
-		if puzzle1Rotor==1:
+		if puzzle1RotorPos==1:
 			$Puzzle1/Rotor/Sprite.rotation_degrees = 0.0
-		if puzzle1Rotor==2:
+		if puzzle1RotorPos==2:
 			$Puzzle1/Rotor/Sprite.rotation_degrees = 48.0
 
 #### Cuting cables ####
@@ -131,7 +131,7 @@ func puzzle1Cable1Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("cut puzzle1Cable1Cut")
 			changeToBroken($Puzzle1/Cable1)
-			if puzzle1Rotor != 0:
+			if puzzle1RotorPos != 0:
 				boom()
 			else:
 				defuseCheckList.erase("puzzle1Cable1")
@@ -140,7 +140,7 @@ func puzzle1Cable2Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("cut puzzle1Cable2Cut")
 			changeToBroken($Puzzle1/Cable2)
-			if puzzle1Rotor != 1:
+			if puzzle1RotorPos != 1:
 				boom()
 			else:
 				defuseCheckList.erase("puzzle1Cable2")
@@ -149,7 +149,7 @@ func puzzle1Cable3Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("cut puzzle1Cable3Cut")
 			changeToBroken($Puzzle1/Cable3)
-			if puzzle1Rotor != 2:
+			if puzzle1RotorPos != 2:
 				boom()
 			else:
 				defuseCheckList.erase("puzzle1Cable3")
@@ -158,7 +158,7 @@ func puzzle1Cable4Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("cut puzzle1Cable4Cut")
 			changeToBroken($Puzzle1/Cable4)
-			if puzzle1Rotor != 1:
+			if puzzle1RotorPos != 1:
 				boom()
 			else:
 				defuseCheckList.erase("puzzle1Cable4")

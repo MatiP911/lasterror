@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c33yf3c3d3sey"]
+
+[ext_resource type="Script" uid="uid://643ejkhyr6y6" path="res://code/scripts/table2.gd" id="1_b2f4q"]
+[ext_resource type="Texture2D" uid="uid://cspmdkxhkrowu" path="res://art/bg-table.png" id="2_wooje"]
+[ext_resource type="PackedScene" uid="uid://crhywhygg7quc" path="res://level/object/bomb2.tscn" id="3_b2f4q"]
+
+[node name="table" type="Node2D"]
+script = ExtResource("1_b2f4q")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("2_wooje")
+centered = false
+
+[node name="Bomba2" parent="." instance=ExtResource("3_b2f4q")]
+position = Vector2(321, 236)

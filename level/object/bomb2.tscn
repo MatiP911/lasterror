@@ -1,0 +1,492 @@
+[gd_scene load_steps=61 format=3 uid="uid://crhywhygg7quc"]
+
+[ext_resource type="Script" uid="uid://emh6547smh7l" path="res://code/scripts/bomb2.gd" id="1_vws3h"]
+[ext_resource type="Texture2D" uid="uid://bpshnur8cnyqo" path="res://art/bomba2-defuse.png" id="2_tspkl"]
+[ext_resource type="Texture2D" uid="uid://dqjh2sxcpmg8e" path="res://art/timer.png" id="3_02eyw"]
+[ext_resource type="Texture2D" uid="uid://dm32jfbbtq576" path="res://art/Bomba 2/Zagadka-tarcza/rotary.png" id="4_opob7"]
+[ext_resource type="Texture2D" uid="uid://b3j7nmmu568yo" path="res://art/Bomba 2/Zagadka-tarcza/roter-stoper.png" id="5_opob7"]
+[ext_resource type="Texture2D" uid="uid://d4haxxy7x18jv" path="res://art/Bomba 2/Zagadka-znaki/baza-symbole-greckie.png" id="5_xf8nn"]
+[ext_resource type="Texture2D" uid="uid://clngx13bm34is" path="res://art/Bomba 2/Zagadka-znaki/greckie-omega.png" id="6_2cf1x"]
+[ext_resource type="Texture2D" uid="uid://dbylqywmnrrai" path="res://art/Bomba 2/Zagadka-znaki/greckie-teta.png" id="7_82gb1"]
+[ext_resource type="Texture2D" uid="uid://clhs24nwxva0t" path="res://art/Bomba 2/Zagadka-znaki/greckie-fi.png" id="8_d3eid"]
+[ext_resource type="Texture2D" uid="uid://berqd3ctr2eab" path="res://art/Bomba 2/Zagadka-znaki/greckie-delta.png" id="9_uvlmv"]
+[ext_resource type="Texture2D" uid="uid://bbcbny20xki1x" path="res://art/Bomba 2/Zagadka-znaki/srubka.png" id="10_d04a6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ie5hl"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(0, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_de5ln"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(22, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_teqsd"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(44, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f55v8"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(66, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8pen"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(88, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytkfl"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(110, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfo83"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(132, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mejf4"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(154, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25uvs"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(176, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k6ma"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(198, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ccre"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(220, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72nrm"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(242, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpcbh"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(264, 0, 22, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ua4y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ie5hl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_de5ln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_teqsd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f55v8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8pen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytkfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfo83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mejf4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25uvs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4k6ma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ccre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72nrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpcbh")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utju4"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(220, 0, 22, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwgr7"]
+atlas = ExtResource("3_02eyw")
+region = Rect2(242, 0, 22, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bji4n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utju4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwgr7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cf1x"]
+atlas = ExtResource("4_opob7")
+region = Rect2(0, 0, 139, 140)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82gb1"]
+atlas = ExtResource("4_opob7")
+region = Rect2(139, 0, 139, 140)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_05bf7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cf1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82gb1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3bnhv"]
+radius = 68.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xf8nn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_opob7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h31cu"]
+atlas = ExtResource("5_xf8nn")
+region = Rect2(0, 0, 107, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_se18y"]
+atlas = ExtResource("5_xf8nn")
+region = Rect2(107, 0, 107, 107)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1i7vv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h31cu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_se18y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02eyw"]
+atlas = ExtResource("6_2cf1x")
+region = Rect2(0, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opob7"]
+atlas = ExtResource("6_2cf1x")
+region = Rect2(35, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf8nn"]
+atlas = ExtResource("6_2cf1x")
+region = Rect2(70, 0, 35, 35)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a804p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02eyw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opob7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xf8nn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_thoom"]
+size = Vector2(34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1liq1"]
+atlas = ExtResource("7_82gb1")
+region = Rect2(0, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_car82"]
+atlas = ExtResource("7_82gb1")
+region = Rect2(35, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nc17"]
+atlas = ExtResource("7_82gb1")
+region = Rect2(70, 0, 35, 35)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_551o2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1liq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_car82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nc17")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s18p"]
+size = Vector2(34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifuvt"]
+atlas = ExtResource("8_d3eid")
+region = Rect2(0, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvk0v"]
+atlas = ExtResource("8_d3eid")
+region = Rect2(35, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8klk"]
+atlas = ExtResource("8_d3eid")
+region = Rect2(70, 0, 35, 35)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f08lq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifuvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvk0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8klk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ps0lr"]
+size = Vector2(35, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0bsg"]
+atlas = ExtResource("9_uvlmv")
+region = Rect2(0, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otrig"]
+atlas = ExtResource("9_uvlmv")
+region = Rect2(35, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hptum"]
+atlas = ExtResource("9_uvlmv")
+region = Rect2(70, 0, 35, 35)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_81grx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0bsg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otrig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hptum")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0cu6"]
+size = Vector2(34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e25k8"]
+atlas = ExtResource("10_d04a6")
+region = Rect2(0, 0, 11, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umm2i"]
+atlas = ExtResource("10_d04a6")
+region = Rect2(11, 0, 11, 11)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xx4m7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e25k8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umm2i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r0wwd"]
+radius = 5.0
+
+[node name="Bomba2" type="Node2D"]
+script = ExtResource("1_vws3h")
+metadata/_edit_group_ = true
+
+[node name="Bomba" type="Sprite2D" parent="."]
+texture = ExtResource("2_tspkl")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="SecUnits" type="AnimatedSprite2D" parent="."]
+position = Vector2(199, -68)
+rotation = 0.785398
+sprite_frames = SubResource("SpriteFrames_2ua4y")
+metadata/_edit_group_ = true
+
+[node name="SecTens" type="AnimatedSprite2D" parent="."]
+position = Vector2(184, -82)
+rotation = 0.785398
+sprite_frames = SubResource("SpriteFrames_2ua4y")
+metadata/_edit_group_ = true
+
+[node name="MinUnits" type="AnimatedSprite2D" parent="."]
+position = Vector2(158, -105)
+rotation = 0.785398
+sprite_frames = SubResource("SpriteFrames_2ua4y")
+metadata/_edit_group_ = true
+
+[node name="MinTens" type="AnimatedSprite2D" parent="."]
+position = Vector2(143, -120)
+rotation = 0.785398
+sprite_frames = SubResource("SpriteFrames_2ua4y")
+metadata/_edit_group_ = true
+
+[node name="Dots" type="AnimatedSprite2D" parent="."]
+position = Vector2(170, -95)
+rotation = 0.785398
+sprite_frames = SubResource("SpriteFrames_bji4n")
+metadata/_edit_group_ = true
+
+[node name="Zagadka-Tarcza" type="Area2D" parent="."]
+position = Vector2(163, 68)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Tarcza"]
+sprite_frames = SubResource("SpriteFrames_05bf7")
+
+[node name="Outer" type="CollisionShape2D" parent="Zagadka-Tarcza"]
+shape = SubResource("CircleShape2D_3bnhv")
+
+[node name="Stoper" type="AnimatedSprite2D" parent="Zagadka-Tarcza"]
+position = Vector2(25, 57)
+sprite_frames = SubResource("SpriteFrames_xf8nn")
+
+[node name="Zagadka-Grecka" type="Area2D" parent="."]
+position = Vector2(-178, 88)
+
+[node name="Baza" type="AnimatedSprite2D" parent="Zagadka-Grecka"]
+sprite_frames = SubResource("SpriteFrames_1i7vv")
+frame = 1
+frame_progress = 0.120212
+
+[node name="Outer" type="Area2D" parent="Zagadka-Grecka"]
+
+[node name="Omega" type="Area2D" parent="Zagadka-Grecka/Outer"]
+position = Vector2(-22, -21)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Grecka/Outer/Omega"]
+sprite_frames = SubResource("SpriteFrames_a804p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Omega"]
+shape = SubResource("RectangleShape2D_thoom")
+
+[node name="Teta" type="Area2D" parent="Zagadka-Grecka/Outer"]
+position = Vector2(21, -21)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Grecka/Outer/Teta"]
+sprite_frames = SubResource("SpriteFrames_551o2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Teta"]
+shape = SubResource("RectangleShape2D_6s18p")
+
+[node name="Fi" type="Area2D" parent="Zagadka-Grecka/Outer"]
+position = Vector2(-21, 21)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Grecka/Outer/Fi"]
+sprite_frames = SubResource("SpriteFrames_f08lq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Fi"]
+shape = SubResource("RectangleShape2D_ps0lr")
+
+[node name="Delta" type="Area2D" parent="Zagadka-Grecka/Outer"]
+position = Vector2(20, 21)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Grecka/Outer/Delta"]
+sprite_frames = SubResource("SpriteFrames_81grx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Delta"]
+shape = SubResource("RectangleShape2D_y0cu6")
+
+[node name="Sroba1" type="Area2D" parent="Zagadka-Grecka/Outer"]
+position = Vector2(46, -46)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Grecka/Outer/Sroba1"]
+sprite_frames = SubResource("SpriteFrames_xx4m7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Sroba1"]
+shape = SubResource("CircleShape2D_r0wwd")
+
+[node name="Sroba2" type="Area2D" parent="Zagadka-Grecka/Outer"]
+position = Vector2(-46, -46)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Grecka/Outer/Sroba2"]
+rotation = -0.71733
+sprite_frames = SubResource("SpriteFrames_xx4m7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Sroba2"]
+shape = SubResource("CircleShape2D_r0wwd")
+
+[node name="Sroba3" type="Area2D" parent="Zagadka-Grecka/Outer"]
+position = Vector2(-46, 46)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Grecka/Outer/Sroba3"]
+sprite_frames = SubResource("SpriteFrames_xx4m7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Sroba3"]
+shape = SubResource("CircleShape2D_r0wwd")
+
+[node name="Sroba4" type="Area2D" parent="Zagadka-Grecka/Outer"]
+position = Vector2(45, 45)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Grecka/Outer/Sroba4"]
+rotation = 0.359538
+sprite_frames = SubResource("SpriteFrames_xx4m7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Sroba4"]
+shape = SubResource("CircleShape2D_r0wwd")
+
+[connection signal="mouse_entered" from="Zagadka-Tarcza" to="." method="rotorHighLight"]
+[connection signal="mouse_exited" from="Zagadka-Tarcza" to="." method="rotorDeHighLight"]
+[connection signal="mouse_entered" from="Zagadka-Grecka/Outer/Omega" to="." method="buttonHighLight" binds= ["Omega"]]
+[connection signal="mouse_exited" from="Zagadka-Grecka/Outer/Omega" to="." method="buttonDeHighLight" binds= ["Omega"]]
+[connection signal="mouse_entered" from="Zagadka-Grecka/Outer/Teta" to="." method="buttonHighLight" binds= ["Teta"]]
+[connection signal="mouse_exited" from="Zagadka-Grecka/Outer/Teta" to="." method="buttonDeHighLight" binds= ["Teta"]]
+[connection signal="mouse_entered" from="Zagadka-Grecka/Outer/Fi" to="." method="buttonHighLight" binds= ["Fi"]]
+[connection signal="mouse_exited" from="Zagadka-Grecka/Outer/Fi" to="." method="buttonDeHighLight" binds= ["Fi"]]
+[connection signal="mouse_entered" from="Zagadka-Grecka/Outer/Delta" to="." method="buttonHighLight" binds= ["Delta"]]
+[connection signal="mouse_exited" from="Zagadka-Grecka/Outer/Delta" to="." method="buttonDeHighLight" binds= ["Delta"]]
