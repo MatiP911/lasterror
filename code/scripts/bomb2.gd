@@ -13,6 +13,8 @@ var srobaActiveList = [1,2,3,4]
 func _ready() -> void:
 	$Timer.start(bombDefuseTime)
 	$Dots.play()
+	#$"Red-LED/LedOn".play()
+	#$"Red-LED/LedGlow".play()
 	
 	####Greek####
 	$"Zagadka-Grecka/Outer/Omega".connect("input_event", Callable(self, "greekPuzzleOmega"))
@@ -30,6 +32,24 @@ func _ready() -> void:
 									
 	####Rotor####
 	$"Zagadka-Tarcza".connect("input_event", Callable(self, "OuterRotor"))
+
+	####Letter####
+	$"Zagadka-Litery/1/Up".connect("input_event", func(viewport, event, shape_idx): 
+							letterOrientationButtonPress(1, "Up", viewport, event, shape_idx))
+	$"Zagadka-Litery/1/Down".connect("input_event", func(viewport, event, shape_idx): 
+							letterOrientationButtonPress(1, "Down", viewport, event, shape_idx))
+	$"Zagadka-Litery/2/Up".connect("input_event", func(viewport, event, shape_idx): 
+							letterOrientationButtonPress(2, "Up", viewport, event, shape_idx))
+	$"Zagadka-Litery/2/Down".connect("input_event", func(viewport, event, shape_idx): 
+							letterOrientationButtonPress(2, "Down", viewport, event, shape_idx))
+	$"Zagadka-Litery/3/Up".connect("input_event", func(viewport, event, shape_idx): 
+							letterOrientationButtonPress(3, "Up", viewport, event, shape_idx))
+	$"Zagadka-Litery/3/Down".connect("input_event", func(viewport, event, shape_idx): 
+							letterOrientationButtonPress(3, "Down", viewport, event, shape_idx))
+	$"Zagadka-Litery/4/Up".connect("input_event", func(viewport, event, shape_idx): 
+							letterOrientationButtonPress(4, "Up", viewport, event, shape_idx))
+	$"Zagadka-Litery/4/Down".connect("input_event", func(viewport, event, shape_idx): 
+							letterOrientationButtonPress(4, "Down", viewport, event, shape_idx))
 
 func _process(delta: float) -> void:
 	checkTime()
@@ -199,3 +219,14 @@ func rotorHighLight():
 func rotorDeHighLight():
 	$"Zagadka-Tarcza/Sprite".frame = 0
 	stopDrag()
+
+
+####Letter puzzle####
+func letterOrientationButtonPress(number: int, orientation: String, viewport, event, shape_idx):
+	pass
+
+func letterOrientationButtonHighlight(number: int, orientation: String):
+	$"Zagadka-Litery".find_child(str(number)).find_child(orientation).find_child("Sprite").frame = 1
+
+func letterOrientationButtonDeHighlight(number: int, orientation: String):
+	$"Zagadka-Litery".find_child(str(number)).find_child(orientation).find_child("Sprite").frame = 0

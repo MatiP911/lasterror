@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://crhywhygg7quc"]
+[gd_scene load_steps=73 format=3 uid="uid://crhywhygg7quc"]
 
 [ext_resource type="Script" uid="uid://emh6547smh7l" path="res://code/scripts/bomb2.gd" id="1_vws3h"]
 [ext_resource type="Texture2D" uid="uid://bpshnur8cnyqo" path="res://art/bomba2-defuse.png" id="2_tspkl"]
@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://clhs24nwxva0t" path="res://art/Bomba 2/Zagadka-znaki/greckie-fi.png" id="8_d3eid"]
 [ext_resource type="Texture2D" uid="uid://berqd3ctr2eab" path="res://art/Bomba 2/Zagadka-znaki/greckie-delta.png" id="9_uvlmv"]
 [ext_resource type="Texture2D" uid="uid://bbcbny20xki1x" path="res://art/Bomba 2/Zagadka-znaki/srubka.png" id="10_d04a6"]
+[ext_resource type="Texture2D" uid="uid://c0dwdoog67d8v" path="res://art/Bomba 2/Zagadka-litery/przycisk-trojkat.png" id="12_xf8nn"]
+[ext_resource type="Texture2D" uid="uid://b1cr3t14mvot2" path="res://art/Bomba 2/LEDs/red.png" id="13_82gb1"]
+[ext_resource type="Texture2D" uid="uid://dhlnusxccbafc" path="res://art/Bomba 2/LEDs/red-glow.png" id="14_d3eid"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ie5hl"]
 atlas = ExtResource("3_02eyw")
@@ -344,6 +347,72 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_r0wwd"]
 radius = 5.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3eid"]
+atlas = ExtResource("12_xf8nn")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvlmv"]
+atlas = ExtResource("12_xf8nn")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d04a6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3eid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvlmv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d04a6"]
+atlas = ExtResource("13_82gb1")
+region = Rect2(0, 0, 23, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ua4y"]
+atlas = ExtResource("13_82gb1")
+region = Rect2(23, 0, 23, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uvlmv"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_d04a6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ua4y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.5
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bji4n"]
+atlas = ExtResource("14_d3eid")
+region = Rect2(0, 0, 313, 315)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05bf7"]
+atlas = ExtResource("14_d3eid")
+region = Rect2(313, 0, 313, 315)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3bnhv"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_bji4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05bf7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.5
+}]
+
 [node name="Bomba2" type="Node2D"]
 script = ExtResource("1_vws3h")
 metadata/_edit_group_ = true
@@ -387,6 +456,7 @@ metadata/_edit_group_ = true
 position = Vector2(163, 68)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Tarcza"]
+position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_05bf7")
 
 [node name="Outer" type="CollisionShape2D" parent="Zagadka-Tarcza"]
@@ -480,6 +550,103 @@ sprite_frames = SubResource("SpriteFrames_xx4m7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Sroba4"]
 shape = SubResource("CircleShape2D_r0wwd")
 
+[node name="Zagadka-Litery" type="Area2D" parent="."]
+
+[node name="1" type="Area2D" parent="Zagadka-Litery"]
+position = Vector2(-209, -158)
+
+[node name="Up" type="Area2D" parent="Zagadka-Litery/1"]
+rotation = 3.14159
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Litery/1/Up"]
+sprite_frames = SubResource("SpriteFrames_d04a6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/1/Up"]
+polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
+
+[node name="Down" type="Area2D" parent="Zagadka-Litery/1"]
+position = Vector2(0, 51)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Litery/1/Down"]
+sprite_frames = SubResource("SpriteFrames_d04a6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/1/Down"]
+polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
+
+[node name="2" type="Area2D" parent="Zagadka-Litery"]
+position = Vector2(-180, -158)
+
+[node name="Up" type="Area2D" parent="Zagadka-Litery/2"]
+rotation = 3.14159
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Litery/2/Up"]
+sprite_frames = SubResource("SpriteFrames_d04a6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/2/Up"]
+polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
+
+[node name="Down" type="Area2D" parent="Zagadka-Litery/2"]
+position = Vector2(0, 51)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Litery/2/Down"]
+sprite_frames = SubResource("SpriteFrames_d04a6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/2/Down"]
+polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
+
+[node name="3" type="Area2D" parent="Zagadka-Litery"]
+position = Vector2(-152, -158)
+
+[node name="Up" type="Area2D" parent="Zagadka-Litery/3"]
+rotation = 3.14159
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Litery/3/Up"]
+sprite_frames = SubResource("SpriteFrames_d04a6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/3/Up"]
+polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
+
+[node name="Down" type="Area2D" parent="Zagadka-Litery/3"]
+position = Vector2(0, 51)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Litery/3/Down"]
+sprite_frames = SubResource("SpriteFrames_d04a6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/3/Down"]
+polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
+
+[node name="4" type="Area2D" parent="Zagadka-Litery"]
+position = Vector2(-124, -158)
+
+[node name="Up" type="Area2D" parent="Zagadka-Litery/4"]
+rotation = 3.14159
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Litery/4/Up"]
+sprite_frames = SubResource("SpriteFrames_d04a6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/4/Up"]
+polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
+
+[node name="Down" type="Area2D" parent="Zagadka-Litery/4"]
+position = Vector2(0, 51)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Litery/4/Down"]
+sprite_frames = SubResource("SpriteFrames_d04a6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/4/Down"]
+polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
+
+[node name="Red-LED" type="Node2D" parent="."]
+position = Vector2(-191, -201)
+
+[node name="LedOn" type="AnimatedSprite2D" parent="Red-LED"]
+sprite_frames = SubResource("SpriteFrames_uvlmv")
+frame = 1
+
+[node name="LedGlow" type="AnimatedSprite2D" parent="Red-LED"]
+sprite_frames = SubResource("SpriteFrames_3bnhv")
+frame = 1
+
 [connection signal="mouse_entered" from="Zagadka-Tarcza" to="." method="rotorHighLight"]
 [connection signal="mouse_exited" from="Zagadka-Tarcza" to="." method="rotorDeHighLight"]
 [connection signal="mouse_entered" from="Zagadka-Grecka/Outer/Omega" to="." method="buttonHighLight" binds= ["Omega"]]
@@ -490,3 +657,19 @@ shape = SubResource("CircleShape2D_r0wwd")
 [connection signal="mouse_exited" from="Zagadka-Grecka/Outer/Fi" to="." method="buttonDeHighLight" binds= ["Fi"]]
 [connection signal="mouse_entered" from="Zagadka-Grecka/Outer/Delta" to="." method="buttonHighLight" binds= ["Delta"]]
 [connection signal="mouse_exited" from="Zagadka-Grecka/Outer/Delta" to="." method="buttonDeHighLight" binds= ["Delta"]]
+[connection signal="mouse_entered" from="Zagadka-Litery/1/Up" to="." method="letterOrientationButtonHighlight" binds= [1, "Up"]]
+[connection signal="mouse_exited" from="Zagadka-Litery/1/Up" to="." method="letterOrientationButtonDeHighlight" binds= [1, "Up"]]
+[connection signal="mouse_entered" from="Zagadka-Litery/1/Down" to="." method="letterOrientationButtonHighlight" binds= [1, "Down"]]
+[connection signal="mouse_exited" from="Zagadka-Litery/1/Down" to="." method="letterOrientationButtonDeHighlight" binds= [1, "Down"]]
+[connection signal="mouse_entered" from="Zagadka-Litery/2/Up" to="." method="letterOrientationButtonHighlight" binds= [2, "Up"]]
+[connection signal="mouse_exited" from="Zagadka-Litery/2/Up" to="." method="letterOrientationButtonDeHighlight" binds= [2, "Up"]]
+[connection signal="mouse_entered" from="Zagadka-Litery/2/Down" to="." method="letterOrientationButtonHighlight" binds= [2, "Down"]]
+[connection signal="mouse_exited" from="Zagadka-Litery/2/Down" to="." method="letterOrientationButtonDeHighlight" binds= [2, "Down"]]
+[connection signal="mouse_entered" from="Zagadka-Litery/3/Up" to="." method="letterOrientationButtonHighlight" binds= [3, "Up"]]
+[connection signal="mouse_exited" from="Zagadka-Litery/3/Up" to="." method="letterOrientationButtonDeHighlight" binds= [3, "Up"]]
+[connection signal="mouse_entered" from="Zagadka-Litery/3/Down" to="." method="letterOrientationButtonHighlight" binds= [3, "Down"]]
+[connection signal="mouse_exited" from="Zagadka-Litery/3/Down" to="." method="letterOrientationButtonDeHighlight" binds= [3, "Down"]]
+[connection signal="mouse_entered" from="Zagadka-Litery/4/Up" to="." method="letterOrientationButtonHighlight" binds= [4, "Up"]]
+[connection signal="mouse_exited" from="Zagadka-Litery/4/Up" to="." method="letterOrientationButtonDeHighlight" binds= [4, "Up"]]
+[connection signal="mouse_entered" from="Zagadka-Litery/4/Down" to="." method="letterOrientationButtonHighlight" binds= [4, "Down"]]
+[connection signal="mouse_exited" from="Zagadka-Litery/4/Down" to="." method="letterOrientationButtonDeHighlight" binds= [4, "Down"]]
