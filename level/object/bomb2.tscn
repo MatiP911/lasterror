@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://crhywhygg7quc"]
+[gd_scene load_steps=101 format=3 uid="uid://crhywhygg7quc"]
 
 [ext_resource type="Script" uid="uid://emh6547smh7l" path="res://code/scripts/bomb2.gd" id="1_vws3h"]
 [ext_resource type="Texture2D" uid="uid://bpshnur8cnyqo" path="res://art/bomba2-defuse.png" id="2_tspkl"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bbcbny20xki1x" path="res://art/Bomba 2/Zagadka-znaki/srubka.png" id="10_d04a6"]
 [ext_resource type="Texture2D" uid="uid://c0dwdoog67d8v" path="res://art/Bomba 2/Zagadka-litery/przycisk-trojkat.png" id="12_xf8nn"]
 [ext_resource type="Texture2D" uid="uid://b1cr3t14mvot2" path="res://art/Bomba 2/LEDs/red.png" id="13_82gb1"]
+[ext_resource type="Texture2D" uid="uid://hselqfiinn44" path="res://art/Bomba 2/Zagadka-litery/literesv2.png" id="13_d3eid"]
 [ext_resource type="Texture2D" uid="uid://dhlnusxccbafc" path="res://art/Bomba 2/LEDs/red-glow.png" id="14_d3eid"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ie5hl"]
@@ -369,6 +370,196 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bnhv"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(0, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8eq6y"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(25, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1i7vv"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(50, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fy1v"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(75, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41ybc"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(100, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrfi7"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(125, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a804p"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(150, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thoom"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(175, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_551o2"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(200, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6s18p"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(225, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f08lq"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(250, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps0lr"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(275, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81grx"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(300, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0cu6"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(325, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xx4m7"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(350, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0wwd"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(375, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kaxi"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(400, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3apu6"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(425, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sylfy"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(450, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhinx"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(475, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7g8up"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(500, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21qfx"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(525, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfv0c"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(550, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvx7o"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(575, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yc3ou"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(600, 0, 25, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0n5gf"]
+atlas = ExtResource("13_d3eid")
+region = Rect2(625, 0, 25, 37)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_erjjg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bnhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8eq6y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1i7vv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fy1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41ybc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrfi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a804p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thoom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_551o2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6s18p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f08lq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps0lr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81grx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0cu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xx4m7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0wwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kaxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3apu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sylfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhinx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7g8up")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21qfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfv0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvx7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yc3ou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0n5gf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_d04a6"]
 atlas = ExtResource("13_82gb1")
 region = Rect2(0, 0, 23, 29)
@@ -453,7 +644,7 @@ sprite_frames = SubResource("SpriteFrames_bji4n")
 metadata/_edit_group_ = true
 
 [node name="Zagadka-Tarcza" type="Area2D" parent="."]
-position = Vector2(163, 68)
+position = Vector2(163, 69)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Zagadka-Tarcza"]
 position = Vector2(1, 0)
@@ -466,7 +657,7 @@ shape = SubResource("CircleShape2D_3bnhv")
 position = Vector2(25, 57)
 sprite_frames = SubResource("SpriteFrames_xf8nn")
 
-[node name="Zagadka-Grecka" type="Area2D" parent="."]
+[node name="Zagadka-Grecka" type="Node2D" parent="."]
 position = Vector2(-178, 88)
 
 [node name="Baza" type="AnimatedSprite2D" parent="Zagadka-Grecka"]
@@ -474,7 +665,7 @@ sprite_frames = SubResource("SpriteFrames_1i7vv")
 frame = 1
 frame_progress = 0.120212
 
-[node name="Outer" type="Area2D" parent="Zagadka-Grecka"]
+[node name="Outer" type="Node2D" parent="Zagadka-Grecka"]
 
 [node name="Omega" type="Area2D" parent="Zagadka-Grecka/Outer"]
 position = Vector2(-22, -21)
@@ -550,9 +741,9 @@ sprite_frames = SubResource("SpriteFrames_xx4m7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zagadka-Grecka/Outer/Sroba4"]
 shape = SubResource("CircleShape2D_r0wwd")
 
-[node name="Zagadka-Litery" type="Area2D" parent="."]
+[node name="Zagadka-Litery" type="Node2D" parent="."]
 
-[node name="1" type="Area2D" parent="Zagadka-Litery"]
+[node name="1" type="Node2D" parent="Zagadka-Litery"]
 position = Vector2(-209, -158)
 
 [node name="Up" type="Area2D" parent="Zagadka-Litery/1"]
@@ -573,7 +764,11 @@ sprite_frames = SubResource("SpriteFrames_d04a6")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/1/Down"]
 polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
 
-[node name="2" type="Area2D" parent="Zagadka-Litery"]
+[node name="Sprite-Letter" type="AnimatedSprite2D" parent="Zagadka-Litery/1"]
+position = Vector2(-1, 25)
+sprite_frames = SubResource("SpriteFrames_erjjg")
+
+[node name="2" type="Node2D" parent="Zagadka-Litery"]
 position = Vector2(-180, -158)
 
 [node name="Up" type="Area2D" parent="Zagadka-Litery/2"]
@@ -594,7 +789,11 @@ sprite_frames = SubResource("SpriteFrames_d04a6")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/2/Down"]
 polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
 
-[node name="3" type="Area2D" parent="Zagadka-Litery"]
+[node name="Sprite-Letter" type="AnimatedSprite2D" parent="Zagadka-Litery/2"]
+position = Vector2(-1, 25)
+sprite_frames = SubResource("SpriteFrames_erjjg")
+
+[node name="3" type="Node2D" parent="Zagadka-Litery"]
 position = Vector2(-152, -158)
 
 [node name="Up" type="Area2D" parent="Zagadka-Litery/3"]
@@ -615,7 +814,11 @@ sprite_frames = SubResource("SpriteFrames_d04a6")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/3/Down"]
 polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
 
-[node name="4" type="Area2D" parent="Zagadka-Litery"]
+[node name="Sprite-Letter" type="AnimatedSprite2D" parent="Zagadka-Litery/3"]
+position = Vector2(-1, 25)
+sprite_frames = SubResource("SpriteFrames_erjjg")
+
+[node name="4" type="Node2D" parent="Zagadka-Litery"]
 position = Vector2(-124, -158)
 
 [node name="Up" type="Area2D" parent="Zagadka-Litery/4"]
@@ -635,6 +838,36 @@ sprite_frames = SubResource("SpriteFrames_d04a6")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zagadka-Litery/4/Down"]
 polygon = PackedVector2Array(-6, -5, 0, 6, 6, -5)
+
+[node name="Sprite-Letter" type="AnimatedSprite2D" parent="Zagadka-Litery/4"]
+position = Vector2(-1, 25)
+sprite_frames = SubResource("SpriteFrames_erjjg")
+
+[node name="1-Down" type="Node2D" parent="Zagadka-Litery"]
+position = Vector2(-209, -158)
+
+[node name="Sprite-Letter" type="AnimatedSprite2D" parent="Zagadka-Litery/1-Down"]
+position = Vector2(-1, 82)
+sprite_frames = SubResource("SpriteFrames_erjjg")
+
+[node name="2-Down" type="Node2D" parent="Zagadka-Litery"]
+position = Vector2(-209, -158)
+
+[node name="Sprite-Letter" type="AnimatedSprite2D" parent="Zagadka-Litery/2-Down"]
+position = Vector2(28, 82)
+sprite_frames = SubResource("SpriteFrames_erjjg")
+
+[node name="3-Down" type="Node2D" parent="Zagadka-Litery"]
+position = Vector2(-153, -76)
+
+[node name="Sprite-Letter" type="AnimatedSprite2D" parent="Zagadka-Litery/3-Down"]
+sprite_frames = SubResource("SpriteFrames_erjjg")
+
+[node name="4-Down" type="Node2D" parent="Zagadka-Litery"]
+position = Vector2(-125, -76)
+
+[node name="Sprite-Letter" type="AnimatedSprite2D" parent="Zagadka-Litery/4-Down"]
+sprite_frames = SubResource("SpriteFrames_erjjg")
 
 [node name="Red-LED" type="Node2D" parent="."]
 position = Vector2(-191, -201)

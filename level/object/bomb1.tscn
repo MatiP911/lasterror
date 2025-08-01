@@ -362,7 +362,7 @@ frame_progress = 0.735771
 position = Vector2(71, 49)
 shape = SubResource("CircleShape2D_o6lrr")
 
-[node name="LEDGlow" type="Area2D" parent="."]
+[node name="LEDGlow" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="LEDGlow"]
 texture = ExtResource("5_5keuk")
@@ -375,7 +375,7 @@ sprite_frames = SubResource("SpriteFrames_de5ln")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CableTimer1"]
 polygon = PackedVector2Array(-124, -101, -115, -101, -100, -95, -91, -95, -80, -99, -80, -94, -91, -90, -101, -90, -116, -97, -125, -97)
 
-[node name="Puzzle1" type="Area2D" parent="."]
+[node name="Puzzle1" type="Node2D" parent="."]
 
 [node name="Rotor" type="Area2D" parent="Puzzle1"]
 

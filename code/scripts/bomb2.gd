@@ -223,7 +223,16 @@ func rotorDeHighLight():
 
 ####Letter puzzle####
 func letterOrientationButtonPress(number: int, orientation: String, viewport, event, shape_idx):
-	pass
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		var frame = $"Zagadka-Litery".find_child(str(number)).find_child("Sprite-Letter").frame
+		if frame == 0 and orientation == "Down":
+			$"Zagadka-Litery".find_child(str(number)).find_child("Sprite-Letter").frame = 25
+			return
+		
+		var plusOne = 1
+		if orientation == "Down":
+			plusOne = -1
+		$"Zagadka-Litery".find_child(str(number)).find_child("Sprite-Letter").frame = (frame+plusOne)%26
 
 func letterOrientationButtonHighlight(number: int, orientation: String):
 	$"Zagadka-Litery".find_child(str(number)).find_child(orientation).find_child("Sprite").frame = 1
