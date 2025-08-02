@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1cr3t14mvot2"
-path="res://.godot/imported/red.png-607ede2317f09f3329cc24427d83293d.ctex"
+uid="uid://cpqbbxmcqf7c5"
+path="res://.godot/imported/x.png-2fdc60fcd23dc8de17830c19e7cdb94a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Bomba 2/LEDs/red.png"
-dest_files=["res://.godot/imported/red.png-607ede2317f09f3329cc24427d83293d.ctex"]
+source_file="res://art/Bomba 2/Zagadka-tarcza/x.png"
+dest_files=["res://.godot/imported/x.png-2fdc60fcd23dc8de17830c19e7cdb94a.ctex"]
 
 [params]
 

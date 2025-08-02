@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhlnusxccbafc"
-path="res://.godot/imported/red-glow.png-766a8a0b3d26696b3e99a843f74ee843.ctex"
+uid="uid://bc62or67ejrbx"
+path="res://.godot/imported/boom-button.png-6b9bce4be4d1cda727368b478d9e0b7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Bomba 2/LEDs/red-glow.png"
-dest_files=["res://.godot/imported/red-glow.png-766a8a0b3d26696b3e99a843f74ee843.ctex"]
+source_file="res://art/Bomba 2/boom-button.png"
+dest_files=["res://.godot/imported/boom-button.png-6b9bce4be4d1cda727368b478d9e0b7b.ctex"]
 
 [params]
 

@@ -2,19 +2,21 @@ extends Node2D
 
 @export var bombDefuseTime = 240
 
+signal explosion
+
 var timerSecUnitsEnable = true
 var timerSecTensEnable = true
 var timerMinUnitsEnable = true
 
-var defuseCheckList = []
+var ledCheckList = ["Greek", "Letter", "Switch", "Phone"]
 var srobaActiveList = [1,2,3,4]
 
 
 func _ready() -> void:
 	$Timer.start(bombDefuseTime)
 	$Dots.play()
-	#$"Red-LED/LedOn".play()
-	#$"Red-LED/LedGlow".play()
+	
+	$"BoomButton".connect("input_event", Callable(self, "boomButtonClick"))
 	
 	####Greek####
 	$"Zagadka-Grecka/Outer/Omega".connect("input_event", Callable(self, "greekPuzzleOmega"))
@@ -56,12 +58,15 @@ func _process(delta: float) -> void:
 	checkTime()
 	RotorDragRotation()
 	
-
-
+func boomButtonClick(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not ledCheckList.is_empty():
+			boom()
+		win()
 
 func boom() -> void:
 	print("BOOOM")
-	get_tree().reload_current_scene()
+	emit_signal("explosion")
 
 func win() -> void:
 	var timeLeft = int($Timer.get_time_left())
@@ -87,14 +92,6 @@ func win() -> void:
 		$Dots.frame = 1
 		await get_tree().create_timer(1.0).timeout
 	print("WIN")
-
-
-func boomButtonPress(viewport, event, shape_idx) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if defuseCheckList.is_empty() == true:
-			win()
-		else:
-			boom()
 
 func checkTime() -> void:
 	var timeLeft = int($Timer.get_time_left())
@@ -158,11 +155,15 @@ func buttonHighLight(letterName: String):
 func buttonDeHighLight(letterName: String):
 	$"Zagadka-Grecka".find_child(letterName).find_child("Sprite").frame = 0
 
+func openDrawer():
+	print("OpenDrawer")
+
 #####Telephone rotor puzzle#####
 var isDragging = false
 var startRotation = 0.0
 var maxRotation = deg_to_rad(342)
 var lastMouseAngle = 0.0
+var canRotate = true
 
 func OuterRotor(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -184,7 +185,7 @@ func RotorDragRotation():
 	var delta = get_process_delta_time()
 	var currentRotation = rotor.rotation
 
-	if isDragging:
+	if isDragging and canRotate:
 		var currentAngle = getGlobalMouseAngle()
 		var deltaAngle = wrapf(currentAngle - lastMouseAngle, -PI, PI)
 		lastMouseAngle = currentAngle
@@ -208,14 +209,49 @@ func RotorDragRotation():
 				newRotation = 0
 			rotor.rotation = newRotation
 
+var FourDigits = []
+
 func stopDrag():
 	if isDragging == true:
 		var rotationAngle = rad_to_deg($"Zagadka-Tarcza/Sprite".rotation)
 		var selectedNumber = ceil((rotationAngle-105.0)/25)
 		if selectedNumber > 0:
 			print(selectedNumber)
+			if not FourDigits.size() == 4:
+				FourDigits.append(selectedNumber)
+			renderX()
 	isDragging = false
 
+func renderX():
+	$"Zagadka-Tarcza/Display".find_child(str(FourDigits.size())+"x").visible = true
+	if FourDigits.size() == 4:
+		canRotate = false
+		await get_tree().create_timer(1.0).timeout
+		checkCombo()
+		
+		for i in range(1,5):
+			$"Zagadka-Tarcza/Display".find_child(str(i)+"x").visible = false
+			
+		$"Zagadka-Tarcza/Display/Calling".visible = true
+		await get_tree().create_timer(2).timeout
+		$"Zagadka-Tarcza/Display/Calling".visible = false
+		canRotate = true
+
+func checkCombo():
+	if checkIfSame(FourDigits, [4,7,8,6]):
+		ledCheckList.erase("Phone")
+		print("Phone")
+	if checkIfSame(FourDigits, [5,3,7,2]):
+		openDrawer()
+	print("No combo found")
+	FourDigits.clear()
+
+func checkIfSame(check, combo) -> bool:
+	for i in range(1,5):
+		if not check.get(i) == combo.get(i):
+			return false
+	return true
+		
 func rotorHighLight():
 	$"Zagadka-Tarcza/Sprite".frame = 1
 
@@ -290,6 +326,7 @@ func checkWord() -> void:
 		
 		if wasItAnswerd.is_empty():
 			print("Zagadka literowa zrobiona")
+			ledCheckList.erase("Letter")
 		return
 		
 	#Custom
