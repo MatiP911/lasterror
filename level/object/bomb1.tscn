@@ -365,7 +365,11 @@ shape = SubResource("CircleShape2D_o6lrr")
 [node name="LEDGlow" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="LEDGlow"]
+visible = false
 texture = ExtResource("5_5keuk")
+
+[node name="LEDTimer" type="Timer" parent="LEDGlow"]
+one_shot = true
 
 [node name="CableTimer1" type="Area2D" parent="."]
 
@@ -426,6 +430,7 @@ polygon = PackedVector2Array(-97, -8, -87, -14, -78, -13, -70, -6, -50, -5, -33,
 
 [connection signal="mouse_entered" from="BoomButton" to="." method="_on_boom_button_mouse_entered"]
 [connection signal="mouse_exited" from="BoomButton" to="." method="_on_boom_button_mouse_exited"]
+[connection signal="timeout" from="LEDGlow/LEDTimer" to="." method="LedTimerTimeOut"]
 [connection signal="mouse_entered" from="CableTimer1" to="." method="_on_cable_timer_1_mouse_entered"]
 [connection signal="mouse_exited" from="CableTimer1" to="." method="_on_cable_timer_1_mouse_exited"]
 [connection signal="mouse_entered" from="Puzzle1/Rotor" to="." method="_on_rotor_mouse_entered"]

@@ -34,6 +34,7 @@ func _ready() -> void:
 	$"Zagadka-Tarcza".connect("input_event", Callable(self, "OuterRotor"))
 
 	####Letter####
+	turnDownLetters(false)
 	$"Zagadka-Litery/1/Up".connect("input_event", func(viewport, event, shape_idx): 
 							letterOrientationButtonPress(1, "Up", viewport, event, shape_idx))
 	$"Zagadka-Litery/1/Down".connect("input_event", func(viewport, event, shape_idx): 
@@ -149,13 +150,13 @@ func takeLidOff():
 	$"Zagadka-Grecka/Outer".visible = false
 	$"Zagadka-Grecka/Baza".frame = 0
 
-func buttonHighLight(name: String):
-	var nodeSpriteHandler = $"Zagadka-Grecka".find_child(name).find_child("Sprite")
+func buttonHighLight(letterName: String):
+	var nodeSpriteHandler = $"Zagadka-Grecka".find_child(letterName).find_child("Sprite")
 	if nodeSpriteHandler.frame != 2:
 		nodeSpriteHandler.frame = 1
 	
-func buttonDeHighLight(name: String):
-	$"Zagadka-Grecka".find_child(name).find_child("Sprite").frame = 0
+func buttonDeHighLight(letterName: String):
+	$"Zagadka-Grecka".find_child(letterName).find_child("Sprite").frame = 0
 
 #####Telephone rotor puzzle#####
 var isDragging = false
@@ -210,7 +211,9 @@ func RotorDragRotation():
 func stopDrag():
 	if isDragging == true:
 		var rotationAngle = rad_to_deg($"Zagadka-Tarcza/Sprite".rotation)
-		print(ceil((rotationAngle-105.0)/25))
+		var selectedNumber = ceil((rotationAngle-105.0)/25)
+		if selectedNumber > 0:
+			print(selectedNumber)
 	isDragging = false
 
 func rotorHighLight():
@@ -222,20 +225,79 @@ func rotorDeHighLight():
 
 
 ####Letter puzzle####
+var letterShift = [1,3,4,0]
 func letterOrientationButtonPress(number: int, orientation: String, viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		$"Zagadka-Litery".find_child(str(number)).find_child(orientation).find_child("Sprite").frame = 1
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		$"Zagadka-Litery".find_child(str(number)).find_child(orientation).find_child("Sprite").frame = 2
 		var frame = $"Zagadka-Litery".find_child(str(number)).find_child("Sprite-Letter").frame
 		if frame == 0 and orientation == "Down":
 			$"Zagadka-Litery".find_child(str(number)).find_child("Sprite-Letter").frame = 25
+			LetterTimerStart()
 			return
 		
 		var plusOne = 1
 		if orientation == "Down":
 			plusOne = -1
 		$"Zagadka-Litery".find_child(str(number)).find_child("Sprite-Letter").frame = (frame+plusOne)%26
+		
+		LetterTimerStart()
 
 func letterOrientationButtonHighlight(number: int, orientation: String):
 	$"Zagadka-Litery".find_child(str(number)).find_child(orientation).find_child("Sprite").frame = 1
 
 func letterOrientationButtonDeHighlight(number: int, orientation: String):
 	$"Zagadka-Litery".find_child(str(number)).find_child(orientation).find_child("Sprite").frame = 0
+	
+func turnDownLetters(state: bool):
+	if state == true:
+		for i in range(1, 5):
+			var letter = ($"Zagadka-Litery".find_child(str(i)).find_child("Sprite-Letter").frame + letterShift[i-1])%26
+			$"Zagadka-Litery".find_child(str(i)+"-Down").find_child("Sprite-Letter").frame = letter
+		checkWord()
+	for i in range(1, 5):
+			$"Zagadka-Litery".find_child(str(i)+"-Down").find_child("Sprite-Letter").visible = state
+
+func LetterTimerStart():
+	$"Zagadka-Litery/LEDFlash".start()
+	$"Zagadka-Litery/LetterTimer".start()
+
+func onLetterTimerTimeout() -> void:
+	$"Zagadka-Litery/LEDFlash".stop()
+	turnDownLetters(true)
+	await get_tree().create_timer(4.0).timeout
+	turnDownLetters(false)
+
+func onLEDFlashTimeout() -> void:
+	$"Zagadka-Litery/LEDs/FlashTimer".visible = true
+	await get_tree().create_timer(0.2).timeout
+	$"Zagadka-Litery/LEDs/FlashTimer".visible = false
+	
+var wordAns = ["FUSE", "HELP", "OPEN", "FAIL"]
+var wasItAnswerd = wordAns
+
+func checkWord() -> void:
+	await get_tree().create_timer(1.0).timeout
+	var setLetters: String = ""
+	for i in range(1,5):
+		setLetters+=String.chr(65 + $"Zagadka-Litery".find_child(str(i)+"-Down").find_child("Sprite-Letter").frame)
+	if not wordAns.find(setLetters) == -1:
+		$"Zagadka-Litery/LEDs".find_child(str(wordAns.find(setLetters)+1)+"Ans").visible = true
+		wasItAnswerd.erase(setLetters)
+		if setLetters == "OPEN":
+			print("OPEN drawer")
+		
+		if wasItAnswerd.is_empty():
+			print("Zagadka literowa zrobiona")
+		return
+		
+	#Custom
+	if setLetters == "BOOM":
+		boom()
+		return
+		
+	if setLetters == "LOOP":
+		print("Loopty loop")
+		return
+	print(setLetters)

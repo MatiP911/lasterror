@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var bombDefuseTime = 25
+@export var LEDTimerMoment = 4
 
 var timerEnable = true
 
@@ -24,6 +25,8 @@ func _ready() -> void:
 	$Puzzle1/Rotor.connect("input_event", Callable(self, "puzzle1RotorClick"))
 	$BoomButton.connect("input_event", Callable(self, "boomButtonPress"))
 	$Timer.connect("timeout", Callable(self, "boom"))
+	
+	$"LEDGlow/LEDTimer".start(bombDefuseTime-LEDTimerMoment-1)
 
 func _process(delta: float) -> void:
 	checkTime()
@@ -104,28 +107,6 @@ func highlightCable(node: Area2D) -> void:
 func dehighlightCable(node: Area2D) -> void:
 	if node.find_child("Sprite").frame != 2:
 		node.find_child("Sprite").frame = 0
-	
-func cableTimer1Cut(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			print("cut cableTimer1Cut")
-			changeToBroken($CableTimer1)
-			if $SecUnits.frame != 2:
-				timerEnable = false
-				$SecUnits.frame = 12
-				$SecTens.frame = 12
-				$MinUnits.frame = 12
-				$MinTens.frame = 12
-				$Dots.stop()
-				# flashing 2
-				await get_tree().create_timer(1.0).timeout
-				for i in range(2):
-					$SecUnits.frame = 2
-					await get_tree().create_timer(1.0).timeout
-					$SecUnits.frame = 12
-					await get_tree().create_timer(1.0).timeout
-				boom()
-			else:
-				defuseCheckList.erase("timercable1")
 
 func puzzle1Cable1Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -163,7 +144,23 @@ func puzzle1Cable4Cut(viewport, event, shape_idx):
 			else:
 				defuseCheckList.erase("puzzle1Cable4")
 
-
+####LED####
+var canCutTimer = false
+func cableTimer1Cut(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			print("cut cableTimer1Cut")
+			changeToBroken($CableTimer1)
+			if not canCutTimer:
+				boom()
+				return
+			defuseCheckList.erase("timercable1")
+			
+func LedTimerTimeOut():
+	canCutTimer = true
+	$"LEDGlow/Sprite2D".visible = true
+	await get_tree().create_timer(1.0).timeout
+	$"LEDGlow/Sprite2D".visible = false
+	canCutTimer = false
 
 #####HighLights#####
 func _on_cable_timer_1_mouse_entered() -> void:
