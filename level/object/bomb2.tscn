@@ -1023,7 +1023,8 @@ shape = SubResource("CircleShape2D_3bnhv")
 
 [node name="Stoper" type="AnimatedSprite2D" parent="Zagadka-Tarcza"]
 z_index = 2
-position = Vector2(-155, -67)
+position = Vector2(-179, -37)
+rotation = -0.129194
 sprite_frames = SubResource("SpriteFrames_xf8nn")
 
 [node name="Display" type="Node2D" parent="Zagadka-Tarcza"]
