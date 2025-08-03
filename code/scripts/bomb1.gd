@@ -37,11 +37,13 @@ func boom() -> void:
 	emit_signal("explosion")
 
 func win() -> void:
+	Global.tutorialBombDefused = true
 	var timeLeft = int($Timer.get_time_left())
 	var seconds = timeLeft % 60
 	var minutes = int(timeLeft / 60)
 	$Timer.stop()
 	$Dots.stop()
+	
 	
 	for i in range(3):
 		timerEnable=false
