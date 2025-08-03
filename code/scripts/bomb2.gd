@@ -2,11 +2,12 @@ extends Node2D
 
 @export var bombDefuseTime = 240
 
+@export var disturberTimers = ['nothing', 20, 50, 90, 140]
+
 signal explosion
 
-var timerSecUnitsEnable = true
-var timerSecTensEnable = true
-var timerMinUnitsEnable = true
+var clockEnabled = true
+
 
 var ledCheckList = ["Greek", "Letter", "Switch", "Phone"]
 var srobaActiveList = [1,2,3,4]
@@ -31,7 +32,11 @@ func _ready() -> void:
 									srobaClick(3, viewport, event, shape_idx))
 	$"Zagadka-Grecka/Outer/Sroba4".connect("input_event", func(viewport, event, shape_idx): 
 									srobaClick(4, viewport, event, shape_idx))
-									
+	$"Zagadka-Grecka/Drawer/ScrewDriver".connect("input_event", Callable(self, "screwdriverClick"))
+
+	for i in range(1,5):
+		$"Zagadka-Grecka".find_child("Disturbe"+str(i)).start(disturberTimers[i]-1)
+		
 	####Rotor####
 	$"Zagadka-Tarcza".connect("input_event", Callable(self, "OuterRotor"))
 
@@ -54,6 +59,22 @@ func _ready() -> void:
 	$"Zagadka-Litery/4/Down".connect("input_event", func(viewport, event, shape_idx): 
 							letterOrientationButtonPress(4, "Down", viewport, event, shape_idx))
 
+	####Switch####
+	$"Zagadka-Switch/Switches/Switch1".connect("input_event", func(viewport, event, shape_idx): 
+							switchClick(1, viewport, event, shape_idx))
+	$"Zagadka-Switch/Switches/Switch2".connect("input_event", func(viewport, event, shape_idx): 
+							switchClick(2, viewport, event, shape_idx))
+	$"Zagadka-Switch/Switches/Switch3".connect("input_event", func(viewport, event, shape_idx): 
+							switchClick(3, viewport, event, shape_idx))
+	$"Zagadka-Switch/Switches/Switch4".connect("input_event", func(viewport, event, shape_idx): 
+							switchClick(4, viewport, event, shape_idx))
+	$"Zagadka-Switch/Switches/Switch5".connect("input_event", func(viewport, event, shape_idx): 
+							switchClick(5, viewport, event, shape_idx))
+	$"Zagadka-Switch/Base/Outer".connect("input_event", Callable(self, "OuterRotorClick"))
+	$"Zagadka-Switch/Base/Inner".connect("input_event", Callable(self, "InnerRotorClick"))
+	
+	$"Zagadka-Switch/Base".visible = false
+
 func _process(delta: float) -> void:
 	checkTime()
 	RotorDragRotation()
@@ -62,6 +83,7 @@ func boomButtonClick(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if not ledCheckList.is_empty():
 			boom()
+			return
 		win()
 
 func boom() -> void:
@@ -76,9 +98,7 @@ func win() -> void:
 	$Dots.stop()
 	
 	for i in range(3):
-		timerSecUnitsEnable=false
-		timerSecTensEnable=false
-		timerMinUnitsEnable=false
+		clockEnabled = false
 		$SecUnits.frame = 12
 		$SecTens.frame = 12
 		$MinUnits.frame = 12
@@ -98,18 +118,32 @@ func checkTime() -> void:
 	var seconds = timeLeft % 60
 	var minutes = int(timeLeft / 60)
 	
-	if timerSecUnitsEnable:
+	if clockEnabled:
 		$SecUnits.frame = seconds % 10
-	if timerSecTensEnable:
 		$SecTens.frame = int(seconds / 10)
-	if timerMinUnitsEnable:
 		$MinUnits.frame = minutes % 10
 
+func ledCheckListChecker():
+	if ledCheckList.rfind("Greek") == -1:
+		$"LEDs/White".visible = true
+	if ledCheckList.rfind("Letter") == -1:
+		$"LEDs/Pink".visible = true
+	if ledCheckList.rfind("Switch") == -1:
+		$"LEDs/Purple".visible = true
+	if ledCheckList.rfind("Phone") == -1:
+		$"LEDs/Orange".visible = true
+
 #####Greek puzzle#####
+var numbersToGreek = [5, 3, 7, 2]
+var greekCombo = [3,3,1,2,0,0,3,2]
+var currentCombo = []
 func greekPuzzleOmega(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			$"Zagadka-Grecka/Outer/Omega/Sprite".frame = 2
+			checkDisturbe(1)
+			currentCombo.append(1)
+			checkGreekCombo()
 		else:
 			$"Zagadka-Grecka/Outer/Omega/Sprite".frame = 1
 
@@ -117,6 +151,9 @@ func greekPuzzleTeta(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			$"Zagadka-Grecka/Outer/Teta/Sprite".frame = 2
+			checkDisturbe(0)
+			currentCombo.append(0)
+			checkGreekCombo()
 		else:
 			$"Zagadka-Grecka/Outer/Teta/Sprite".frame = 1
 
@@ -124,6 +161,9 @@ func greekPuzzleFi(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			$"Zagadka-Grecka/Outer/Fi/Sprite".frame = 2
+			checkDisturbe(2)
+			currentCombo.append(2)
+			checkGreekCombo()
 		else:
 			$"Zagadka-Grecka/Outer/Fi/Sprite".frame = 1
 
@@ -131,11 +171,16 @@ func greekPuzzleDelta(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			$"Zagadka-Grecka/Outer/Delta/Sprite".frame = 2
+			checkDisturbe(3)
+			currentCombo.append(3)
+			checkGreekCombo()
 		else:
 			$"Zagadka-Grecka/Outer/Delta/Sprite".frame = 1
 
 func srobaClick(number, viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not scredriverActive:
+			return
 		var srobaHandler = $"Zagadka-Grecka/Outer".find_child("Sroba"+str(number))
 		srobaHandler.find_child("Sprite").visible = false
 		srobaHandler.find_child("CollisionShape2D").disabled = true
@@ -155,9 +200,78 @@ func buttonHighLight(letterName: String):
 func buttonDeHighLight(letterName: String):
 	$"Zagadka-Grecka".find_child(letterName).find_child("Sprite").frame = 0
 
-func openDrawer():
-	print("OpenDrawer")
 
+var disturbeOn = false
+var disturbeId = 0
+
+func checkDisturbe(id: int):
+	if not disturbeOn:
+		return
+	if not id == disturbeId:
+		boom()
+		return
+	disturbeOn = false
+	
+func disturbeTimeOut(number: int):
+	clockEnabled = false
+	disturbeOn = true
+	disturbeId = number-1
+	$SecUnits.frame = 12
+	$SecTens.frame = 12
+	$MinUnits.frame = 12
+	
+	for i in range(1,6):
+		if not disturbeOn:
+			clockEnabled = true
+			return
+		$"MinTens".frame = numbersToGreek[number-1]
+		$"Zagadka-Grecka/DisturbeLED".visible = true
+		await get_tree().create_timer(0.5).timeout
+		$"MinTens".frame = 12
+		$"Zagadka-Grecka/DisturbeLED".visible = false
+		if not disturbeOn:
+			clockEnabled = true
+			return
+		await get_tree().create_timer(0.5).timeout
+	if disturbeOn:
+		boom()
+	clockEnabled = true
+
+func checkGreekCombo():
+	for i in range(0,currentCombo.size()):
+		if not currentCombo.get(i) == greekCombo.get(i):
+			currentCombo.clear()
+			return
+		if currentCombo.size() == greekCombo.size():
+			ledCheckList.erase("Greek")
+			ledCheckListChecker()
+
+var drawerTrans = Vector2(0.0,58.0)
+func openDrawer():
+	print("Opening")
+	$"Zagadka-Grecka/Drawer".visible = true
+	move_object($"Zagadka-Grecka/Drawer", drawerTrans, 1.6)
+
+func screwdriverHighlight():
+	$"Zagadka-Grecka/Drawer/ScrewDriver/Sprite".frame = 1
+	
+func screwdriverDeHighlight():
+	$"Zagadka-Grecka/Drawer/ScrewDriver/Sprite".frame = 0
+
+var scredriverActive = false
+
+func screwdriverClick(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		$"Zagadka-Grecka/Drawer/ScrewDriver".visible = false
+		scredriverActive = true
+
+func screwHighlight(number: int):
+	if scredriverActive:
+		$"Zagadka-Grecka/Outer".find_child("Sroba"+str(number)).find_child("Sprite").frame = 1
+	
+func screwDeHighlight(number: int):
+	$"Zagadka-Grecka/Outer".find_child("Sroba"+str(number)).find_child("Sprite").frame = 0
+		
 #####Telephone rotor puzzle#####
 var isDragging = false
 var startRotation = 0.0
@@ -240,8 +354,8 @@ func renderX():
 func checkCombo():
 	if checkIfSame(FourDigits, [4,7,8,6]):
 		ledCheckList.erase("Phone")
-		print("Phone")
-	if checkIfSame(FourDigits, [5,3,7,2]):
+		ledCheckListChecker()
+	if checkIfSame(FourDigits, numbersToGreek):
 		openDrawer()
 	print("No combo found")
 	FourDigits.clear()
@@ -322,11 +436,11 @@ func checkWord() -> void:
 		$"Zagadka-Litery/LEDs".find_child(str(wordAns.find(setLetters)+1)+"Ans").visible = true
 		wasItAnswerd.erase(setLetters)
 		if setLetters == "OPEN":
-			print("OPEN drawer")
+			openFlap()
 		
 		if wasItAnswerd.is_empty():
-			print("Zagadka literowa zrobiona")
 			ledCheckList.erase("Letter")
+			ledCheckListChecker()
 		return
 		
 	#Custom
@@ -338,3 +452,201 @@ func checkWord() -> void:
 		print("Loopty loop")
 		return
 	print(setLetters)
+
+
+####Switches####
+var flapTransform = Vector2(0.0, 133.0)
+var switchCableBottomOutState = [0,0,0]
+
+
+func openFlap():
+	$"Zagadka-Switch/Base".visible = true
+	move_object($"Zagadka-Switch/Flap", flapTransform, 1.6)
+	await get_tree().create_timer(0.3).timeout
+	$"Zagadka-Switch/Switches".visible=false
+	await get_tree().create_timer(1.5).timeout
+	checkSwitchCableBottom()
+
+func checkSwitchCableBottom():
+	var BottomSwitchState = [0,0,0,0,0,0]
+	for i in range(1,6):
+		if $"Zagadka-Switch/Switches".find_child("Switch"+str(i)).find_child("Sprite").frame == 2:
+			$"Zagadka-Switch/Base/LEDs".find_child("R"+str(i)).visible = true
+			BottomSwitchState.set(i, 1)
+	await get_tree().create_timer(0.2).timeout
+	##6
+	if BottomSwitchState.get(1) and BottomSwitchState.get(3):
+		blowCircut(6)
+	switchCableBottomOutState.set(0, BottomSwitchState.get(1)^BottomSwitchState.get(3))
+	$"Zagadka-Switch/Base/LEDs/R6".visible = switchCableBottomOutState.get(0)
+	
+	##7
+	if BottomSwitchState.get(2) and BottomSwitchState.get(5):
+		blowCircut(7)
+	switchCableBottomOutState.set(1, BottomSwitchState.get(2)^BottomSwitchState.get(5))
+	$"Zagadka-Switch/Base/LEDs/R7".visible = switchCableBottomOutState.get(1)
+
+	##8
+	if BottomSwitchState.get(3) and BottomSwitchState.get(4):
+		blowCircut(8)
+	switchCableBottomOutState.set(2, BottomSwitchState.get(3)^BottomSwitchState.get(4))
+	$"Zagadka-Switch/Base/LEDs/R8".visible = switchCableBottomOutState.get(2)
+
+	checkSwitchCableUpper()
+	
+func blowCircut(number: int):
+	$"Zagadka-Switch/Base/CableSplot".find_child("Splot"+str(number)).visible = true
+
+func checkSwitchCableUpper():
+	var cableTurnOnCheck = ["1","2","3"]
+	print(switchCableBottomOutState)
+	print("Outer" + str(outerState))
+	print("Inner" + str(innerState))
+#O-I-Out
+#1
+#2-x-1  6-x-0  10-x-2  0-0-1  0-2-2  4-4-0  8-4-2  8-8-2  8-10-0
+	if ((outerState == 2 and switchCableBottomOutState.get(1)) or
+		(outerState == 6 and switchCableBottomOutState.get(0)) or
+		(outerState == 10 and switchCableBottomOutState.get(2)) or
+		(outerState == 0 and innerState == 0 and switchCableBottomOutState.get(1)) or 
+		(outerState == 0 and innerState == 2 and switchCableBottomOutState.get(2)) or 
+		(outerState == 4 and innerState == 4 and switchCableBottomOutState.get(0)) or 
+		(outerState == 8 and innerState == 4 and switchCableBottomOutState.get(2)) or 
+		(outerState == 8 and innerState == 8 and switchCableBottomOutState.get(2)) or 
+		(outerState == 8 and innerState == 10 and switchCableBottomOutState.get(0))):
+		$"Zagadka-Switch/Base/Outer/F1".visible = true
+		cableTurnOnCheck.erase("1")
+	else:
+		$"Zagadka-Switch/Base/Outer/F1".visible = false
+#2
+#0-0-1  0-1-0  2-2-1  4-2-0  6-3-0  8-3-0  10-3-0  0-4-0  4-4-0  4-5-2  6-6-0
+#8-6-2  0-7-2  2-7-2  10-7-2  4-8-2  8-8-2  8-9-2  10-0-1  10-10-2  2-11-1  4-11-1
+	if ((outerState == 0 and innerState == 0 and switchCableBottomOutState.get(1)) or 
+		(outerState == 0 and innerState == 1 and switchCableBottomOutState.get(0)) or 
+		(outerState == 2 and innerState == 2 and switchCableBottomOutState.get(1)) or 
+		(outerState == 4 and innerState == 2 and switchCableBottomOutState.get(0)) or 
+		(outerState == 6 and innerState == 3 and switchCableBottomOutState.get(0)) or 
+		(outerState == 8 and innerState == 3 and switchCableBottomOutState.get(0)) or 
+		(outerState == 10 and innerState == 3 and switchCableBottomOutState.get(0)) or 
+		(outerState == 0 and innerState == 4 and switchCableBottomOutState.get(0)) or 
+		(outerState == 4 and innerState == 5 and switchCableBottomOutState.get(2)) or 
+		(outerState == 6 and innerState == 6 and switchCableBottomOutState.get(0)) or 
+		(outerState == 8 and innerState == 6 and switchCableBottomOutState.get(2)) or 
+		(outerState == 0 and innerState == 7 and switchCableBottomOutState.get(2)) or 
+		(outerState == 2 and innerState == 7 and switchCableBottomOutState.get(2)) or 
+		(outerState == 10 and innerState == 7 and switchCableBottomOutState.get(2)) or 
+		(outerState == 4 and innerState == 8 and switchCableBottomOutState.get(2)) or 
+		(outerState == 8 and innerState == 8 and switchCableBottomOutState.get(2)) or 
+		(outerState == 8 and innerState == 9 and switchCableBottomOutState.get(2)) or 
+		(outerState == 10 and innerState == 0 and switchCableBottomOutState.get(1)) or 
+		(outerState == 10 and innerState == 10 and switchCableBottomOutState.get(2)) or 
+		(outerState == 2 and innerState == 11 and switchCableBottomOutState.get(1)) or 
+		(outerState == 4 and innerState == 11 and switchCableBottomOutState.get(1))):
+		$"Zagadka-Switch/Base/LEDs/F2".visible = true
+		cableTurnOnCheck.erase("2")
+	else:
+		$"Zagadka-Switch/Base/LEDs/F2".visible = false
+#3
+#0-0-2  10-0-2  6-2-0  8-4-2  6-6-0  8-8-2  2-9-2  8-10-0  10-10-0
+	if ((outerState == 0 and innerState == 0 and switchCableBottomOutState.get(2)) or 
+		(outerState == 10 and innerState == 0 and switchCableBottomOutState.get(2)) or 
+		(outerState == 6 and innerState == 2 and switchCableBottomOutState.get(0)) or 
+		(outerState == 8 and innerState == 4 and switchCableBottomOutState.get(2)) or 
+		(outerState == 6 and innerState == 6 and switchCableBottomOutState.get(0)) or 
+		(outerState == 8 and innerState == 8 and switchCableBottomOutState.get(2)) or 
+		(outerState == 2 and innerState == 9 and switchCableBottomOutState.get(2)) or 
+		(outerState == 8 and innerState == 10 and switchCableBottomOutState.get(0)) or 
+		(outerState == 10 and innerState == 10 and switchCableBottomOutState.get(0))):
+		$"Zagadka-Switch/Base/LEDs/F3".visible = true
+		cableTurnOnCheck.erase("3")
+	else:
+		$"Zagadka-Switch/Base/LEDs/F3".visible = false
+	
+	if cableTurnOnCheck.is_empty():
+		ledCheckList.erase("Switch")
+		ledCheckListChecker()
+	
+
+func move_object(objectToMove, offset: Vector2, duration: float = 1.0):
+	var targetPosition = objectToMove.position + offset
+	var tween = create_tween()
+	tween.tween_property(objectToMove, "position", targetPosition, duration)
+
+func switchHighLight(number: int):
+	var node = $"Zagadka-Switch/Switches".find_child("Switch"+str(number)).find_child("Sprite")
+	node.frame += 1
+
+func switchDeHighLight(number: int):
+	var node = $"Zagadka-Switch/Switches".find_child("Switch"+str(number)).find_child("Sprite")
+	node.frame -= 1
+
+func switchClick(number: int, viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var node = $"Zagadka-Switch/Switches".find_child("Switch"+str(number))
+		var nodeTrans = node.position
+		node.find_child("Sprite").frame = (node.find_child("Sprite").frame+2)%4
+		if node.find_child("Sprite").frame < 2:
+			node.set_position(node.position-Vector2(0.0, 25.0))
+		else:
+			node.set_position(node.position+Vector2(0.0, 25.0))
+
+func OuterRotorHighLight():
+	$"Zagadka-Switch/Base/Outer/Sprite".frame = 1
+
+func OuterRotorDeHighLight():
+	$"Zagadka-Switch/Base/Outer/Sprite".frame = 0
+
+func InnerRotorHighLight():
+	$"Zagadka-Switch/Base/Inner/Sprite".frame = 3
+	$"Zagadka-Switch/Base/Outer/Sprite".frame = 0
+
+func InnerRotorDeHighLight():
+	$"Zagadka-Switch/Base/Inner/Sprite".frame = 2
+	$"Zagadka-Switch/Base/Outer/Sprite".frame = 1
+
+var outerState = 0
+var innerState = 0
+
+func OuterRotorClick(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed and (event.button_index == MOUSE_BUTTON_LEFT or event.button_index == MOUSE_BUTTON_RIGHT):
+		var space_state = get_world_2d().direct_space_state
+		var space = PhysicsServer2D.space_get_direct_state(get_world_2d().get_space())
+		var parameters = PhysicsPointQueryParameters2D.new()
+		parameters.position= get_viewport().get_mouse_position()
+		parameters.collide_with_areas = true
+		parameters.collide_with_bodies = false
+		parameters.collision_mask = 2
+		var result = space.intersect_point(parameters)
+		
+		if result.size() > 0:
+			return
+			
+		var node = $"Zagadka-Switch/Base/Outer"
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			outerState = (outerState+1)%12
+			node.rotation_degrees = (int(node.rotation_degrees)+30)%360
+		else:
+			outerState = (outerState-1)%12
+			if node.rotation_degrees == 0:
+				node.rotation_degrees = 330
+				outerState = 11
+				return
+			node.rotation_degrees = (int(node.rotation_degrees)-30)%360
+		#$"Zagadka-Switch/Base/Outer/F1".global_rotation_degrees = 0.0
+		checkSwitchCableUpper()
+
+
+func InnerRotorClick(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed and (event.button_index == MOUSE_BUTTON_LEFT or event.button_index == MOUSE_BUTTON_RIGHT):
+		var node = $"Zagadka-Switch/Base/Inner"
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			innerState = (innerState+1)%12
+			node.rotation_degrees = (int(node.rotation_degrees)+30)%360
+		else:
+			innerState = (innerState-1)%12
+			if node.rotation_degrees == 0:
+				node.rotation_degrees = 330
+				innerState = 11
+				return
+			node.rotation_degrees = (int(node.rotation_degrees)-30)%360
+		checkSwitchCableUpper()

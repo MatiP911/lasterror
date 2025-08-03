@@ -319,7 +319,7 @@ position = Vector2(321, 236)
 
 [node name="BoomAnimation" type="AnimatedSprite2D" parent="."]
 visible = false
-z_index = 1
+z_index = 7
 sprite_frames = SubResource("SpriteFrames_24o06")
 frame = 41
 frame_progress = 1.0
