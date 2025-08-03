@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://doiru2y5bbllm"]
+[gd_scene load_steps=54 format=3 uid="uid://doiru2y5bbllm"]
 
 [ext_resource type="Script" uid="uid://ccqwyhjgu8mth" path="res://code/scripts/table1.gd" id="1_5sflg"]
 [ext_resource type="Texture2D" uid="uid://cspmdkxhkrowu" path="res://art/bg-table.png" id="1_ma0er"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dkep5s71ledvx" path="res://art/spiraleDeath.png" id="4_bo0lg"]
 [ext_resource type="AudioStream" uid="uid://c8etw7fd2pojx" path="res://audio/sfx/g/explosionCrunch_000.ogg" id="5_8oxqr"]
 [ext_resource type="Texture2D" uid="uid://7n6evur8qw0t" path="res://art/exitArrow.png" id="6_8oxqr"]
+[ext_resource type="Texture2D" uid="uid://dl6k01dpnhpaa" path="res://art/menu/defused.png" id="7_4m3lg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8oxqr"]
 atlas = ExtResource("4_bo0lg")
@@ -359,6 +360,15 @@ sprite_frames = SubResource("SpriteFrames_evirt")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BackArrow"]
 polygon = PackedVector2Array(-30, 1, -12, -14, -13, -4, -2, -6, 28, -6, 32, -3, 28, 12, 6, 4, -11, 4, -10, 14, -30, 3)
+
+[node name="WinScreen" type="Area2D" parent="."]
+visible = false
+position = Vector2(4, 20)
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="Sprite2D" parent="WinScreen"]
+position = Vector2(456, 426)
+texture = ExtResource("7_4m3lg")
 
 [connection signal="animation_finished" from="BoomAnimation" to="." method="onBoomAnimationEnd"]
 [connection signal="mouse_entered" from="BackArrow" to="." method="backArrowHighLight"]
