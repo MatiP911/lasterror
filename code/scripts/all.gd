@@ -12,8 +12,6 @@ func _ready():
 	$Notatka.connect("input_event", Callable(self, "_on_NotatkaCollision_input_event"))
 	$List.connect("input_event", Callable(self, "_on_ListCollision_input_event"))
 	
-
-
 func _on_NotatkaCollision_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		$Notatka.visible = false
