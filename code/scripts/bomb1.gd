@@ -81,6 +81,7 @@ func checkTime() -> void:
 
 func puzzle1RotorClick(viewport, event, shape_idx) -> void:
 	if event is InputEventMouseButton and event.pressed:
+		$"Puzzle1/ClackSound".play()
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			puzzle1RotorPos=(puzzle1RotorPos+1)%3
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
@@ -114,6 +115,7 @@ func dehighlightCable(node: Area2D) -> void:
 func puzzle1Cable1Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("cut puzzle1Cable1Cut")
+			$"CableCut".play()
 			changeToBroken($Puzzle1/Cable1)
 			if puzzle1RotorPos != 0:
 				boom()
@@ -123,6 +125,7 @@ func puzzle1Cable1Cut(viewport, event, shape_idx):
 func puzzle1Cable2Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("cut puzzle1Cable2Cut")
+			$"CableCut".play()
 			changeToBroken($Puzzle1/Cable2)
 			if puzzle1RotorPos != 1:
 				boom()
@@ -132,6 +135,7 @@ func puzzle1Cable2Cut(viewport, event, shape_idx):
 func puzzle1Cable3Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("cut puzzle1Cable3Cut")
+			$"CableCut".play()
 			changeToBroken($Puzzle1/Cable3)
 			if puzzle1RotorPos != 2:
 				boom()
@@ -141,6 +145,7 @@ func puzzle1Cable3Cut(viewport, event, shape_idx):
 func puzzle1Cable4Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("cut puzzle1Cable4Cut")
+			$"CableCut".play()
 			changeToBroken($Puzzle1/Cable4)
 			if puzzle1RotorPos != 1:
 				boom()
@@ -152,6 +157,7 @@ var canCutTimer = false
 func cableTimer1Cut(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("cut cableTimer1Cut")
+			$"CableCut".play()
 			changeToBroken($CableTimer1)
 			if not canCutTimer:
 				boom()
@@ -160,8 +166,9 @@ func cableTimer1Cut(viewport, event, shape_idx):
 			
 func LedTimerTimeOut():
 	canCutTimer = true
+	$"LEDGlow/LEDOn".play()
 	$"LEDGlow/Sprite2D".visible = true
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(2.0).timeout
 	$"LEDGlow/Sprite2D".visible = false
 	canCutTimer = false
 
