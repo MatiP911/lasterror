@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bgj5tmuvn154g"]
+[gd_scene load_steps=63 format=3 uid="uid://bgj5tmuvn154g"]
 
 [ext_resource type="Texture2D" uid="uid://bg18dqbcpkq65" path="res://art/bomb-empty.png" id="1_aafb6"]
 [ext_resource type="Script" uid="uid://dkvr74rycwe8d" path="res://code/scripts/bomb1.gd" id="1_j7fs1"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://sf5g0vl5spk3" path="res://art/zagadka bomba 1/bomba1-led-sie-swieci.png" id="5_5keuk"]
 [ext_resource type="Texture2D" uid="uid://xar2isndu8fd" path="res://art/zagadka bomba 1/bomba1-kabel-timer-good.png" id="6_5keuk"]
 [ext_resource type="Texture2D" uid="uid://cxdid42rr5cdk" path="res://art/zagadka bomba 1/bomba1-kabel-timer-broken.png" id="6_ie5hl"]
+[ext_resource type="AudioStream" uid="uid://bxrh3mf64m6rb" path="res://audio/sfx/lampka-cut.wav" id="6_n8pen"]
 [ext_resource type="Texture2D" uid="uid://bdic2ffjbof0x" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-1-good.png" id="7_b6016"]
 [ext_resource type="Texture2D" uid="uid://bcb0klgbv72v8" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-2-good.png" id="7_o6lrr"]
 [ext_resource type="Texture2D" uid="uid://drpor6qlw12ie" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-1-broken.png" id="8_ie5hl"]
@@ -17,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://fwdeixlva8ou" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-3-broken.png" id="12_teqsd"]
 [ext_resource type="Texture2D" uid="uid://fpnmqfy47kdc" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-4-good.png" id="13_f55v8"]
 [ext_resource type="Texture2D" uid="uid://d6imgchlcngo" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-4-broken.png" id="14_n8pen"]
+[ext_resource type="AudioStream" uid="uid://bhf6856qqrmdf" path="res://audio/sfx/g/1switch8.ogg" id="18_f55v8"]
+[ext_resource type="AudioStream" uid="uid://dsvqa32hsye3e" path="res://audio/sfx/wireCut.mp3" id="20_ytkfl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_de5ln"]
 atlas = ExtResource("3_yd4hi")
@@ -393,6 +396,9 @@ texture = ExtResource("5_5keuk")
 [node name="LEDTimer" type="Timer" parent="LEDGlow"]
 one_shot = true
 
+[node name="LEDOn" type="AudioStreamPlayer2D" parent="LEDGlow"]
+stream = ExtResource("6_n8pen")
+
 [node name="CableTimer1" type="Area2D" parent="."]
 position = Vector2(93, -6)
 
@@ -451,6 +457,14 @@ sprite_frames = SubResource("SpriteFrames_mejf4")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Puzzle1/Cable4"]
 position = Vector2(-1, -14)
 polygon = PackedVector2Array(-97, -8, -87, -14, -78, -13, -70, -6, -50, -5, -33, -8, -20, -8, -21, -4, -33, -3, -50, 1, -66, 1, -76, -3, -80, -8, -88, -7, -93, -3)
+
+[node name="ClackSound" type="AudioStreamPlayer2D" parent="Puzzle1"]
+position = Vector2(-163, -69)
+stream = ExtResource("18_f55v8")
+
+[node name="CableCut" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_ytkfl")
+volume_db = -6.0
 
 [connection signal="mouse_entered" from="BoomButton" to="." method="_on_boom_button_mouse_entered"]
 [connection signal="mouse_exited" from="BoomButton" to="." method="_on_boom_button_mouse_exited"]

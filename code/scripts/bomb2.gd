@@ -146,6 +146,7 @@ func checkTime() -> void:
 func mainTimerTimeOut():
 	clockEnabled = false
 	for i in range(0,3):
+		$"Bip1".play()
 		$"MinTens".frame = 13
 		$"MinUnits".frame = 14
 		$"SecTens".frame = 15
@@ -249,10 +250,9 @@ func checkDisturbe(id: int):
 	if not disturbeOn:
 		return
 	if not id == disturbeId:
-		boom()
 		return
 	disturbeOn = false
-	
+
 func disturbeTimeOut(number: int):
 	clockEnabled = false
 	disturbeOn = true
@@ -261,7 +261,7 @@ func disturbeTimeOut(number: int):
 	$SecTens.frame = 12
 	$MinUnits.frame = 12
 	
-	for i in range(1,6):
+	for i in range(0,20):
 		if not disturbeOn:
 			clockEnabled = true
 			return
@@ -275,8 +275,7 @@ func disturbeTimeOut(number: int):
 			clockEnabled = true
 			return
 		await get_tree().create_timer(0.5).timeout
-	if disturbeOn:
-		boom()
+	disturbeOn = false
 	clockEnabled = true
 
 func checkGreekCombo():
