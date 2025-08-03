@@ -420,11 +420,11 @@ func playSound(number: int):
 	if number == 10:
 		for i in range(0,6):
 			$"Zagadka-Tarcza/ClackSound".play()
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.3).timeout
 		return
 	for i in range(0,number):
 			$"Zagadka-Tarcza/ClackSound".play()
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.3).timeout
 
 func rotorHighLight():
 	$"Zagadka-Tarcza/Sprite".frame = 1
