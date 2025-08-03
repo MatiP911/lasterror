@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bgj5tmuvn154g"]
+[gd_scene load_steps=60 format=3 uid="uid://bgj5tmuvn154g"]
 
 [ext_resource type="Texture2D" uid="uid://bg18dqbcpkq65" path="res://art/bomb-empty.png" id="1_aafb6"]
 [ext_resource type="Script" uid="uid://dkvr74rycwe8d" path="res://code/scripts/bomb1.gd" id="1_j7fs1"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bcb0klgbv72v8" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-2-good.png" id="7_o6lrr"]
 [ext_resource type="Texture2D" uid="uid://drpor6qlw12ie" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-1-broken.png" id="8_ie5hl"]
 [ext_resource type="Texture2D" uid="uid://bn2lye1qbfoth" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-2-broken.png" id="8_p4tam"]
+[ext_resource type="Texture2D" uid="uid://6di76m6hdf7s" path="res://art/zagadka bomba 1/gala_sel.png" id="9_teqsd"]
 [ext_resource type="Texture2D" uid="uid://dtlxenss56qw5" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-3-good.png" id="11_de5ln"]
 [ext_resource type="Texture2D" uid="uid://fwdeixlva8ou" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-3-broken.png" id="12_teqsd"]
 [ext_resource type="Texture2D" uid="uid://fpnmqfy47kdc" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-4-good.png" id="13_f55v8"]
@@ -216,22 +217,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j6t6m"]
-atlas = ExtResource("4_lyovj")
-region = Rect2(0, 0, 63, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qmdag"]
-atlas = ExtResource("4_lyovj")
-region = Rect2(63, 0, 63, 63)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_bmetq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_j6t6m")
+"texture": ExtResource("4_lyovj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qmdag")
+"texture": ExtResource("9_teqsd")
 }],
 "loop": true,
 "name": &"default",
@@ -354,32 +347,33 @@ metadata/_edit_group_ = true
 wait_time = 240.0
 
 [node name="SecUnits" type="AnimatedSprite2D" parent="."]
-position = Vector2(16, -95)
+position = Vector2(108, -101)
 sprite_frames = SubResource("SpriteFrames_ie5hl")
 metadata/_edit_group_ = true
 
 [node name="SecTens" type="AnimatedSprite2D" parent="."]
-position = Vector2(-4, -95)
+position = Vector2(88, -101)
 sprite_frames = SubResource("SpriteFrames_ie5hl")
 metadata/_edit_group_ = true
 
 [node name="MinUnits" type="AnimatedSprite2D" parent="."]
-position = Vector2(-39, -95)
+position = Vector2(53, -101)
 sprite_frames = SubResource("SpriteFrames_ie5hl")
 metadata/_edit_group_ = true
 
 [node name="MinTens" type="AnimatedSprite2D" parent="."]
-position = Vector2(-60, -95)
+position = Vector2(32, -101)
 sprite_frames = SubResource("SpriteFrames_ie5hl")
 metadata/_edit_group_ = true
 
 [node name="Dots" type="AnimatedSprite2D" parent="."]
-position = Vector2(-21, -95)
+position = Vector2(71, -101)
 sprite_frames = SubResource("SpriteFrames_vmelp")
 frame_progress = 0.62151
 metadata/_edit_group_ = true
 
 [node name="BoomButton" type="Area2D" parent="."]
+position = Vector2(12, 37)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BoomButton"]
 position = Vector2(71, 49)
@@ -400,6 +394,7 @@ texture = ExtResource("5_5keuk")
 one_shot = true
 
 [node name="CableTimer1" type="Area2D" parent="."]
+position = Vector2(93, -6)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="CableTimer1"]
 sprite_frames = SubResource("SpriteFrames_de5ln")
@@ -408,6 +403,7 @@ sprite_frames = SubResource("SpriteFrames_de5ln")
 polygon = PackedVector2Array(-124, -101, -115, -101, -100, -95, -91, -95, -80, -99, -80, -94, -91, -90, -101, -90, -116, -97, -125, -97)
 
 [node name="Puzzle1" type="Node2D" parent="."]
+position = Vector2(-7, 3)
 
 [node name="Rotor" type="Area2D" parent="Puzzle1"]
 
