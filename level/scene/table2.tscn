@@ -1,9 +1,11 @@
-[gd_scene load_steps=48 format=3 uid="uid://c33yf3c3d3sey"]
+[gd_scene load_steps=53 format=3 uid="uid://c33yf3c3d3sey"]
 
 [ext_resource type="Script" uid="uid://643ejkhyr6y6" path="res://code/scripts/table2.gd" id="1_b2f4q"]
 [ext_resource type="Texture2D" uid="uid://cspmdkxhkrowu" path="res://art/bg-table.png" id="2_wooje"]
 [ext_resource type="PackedScene" uid="uid://crhywhygg7quc" path="res://level/object/bomb2.tscn" id="3_b2f4q"]
 [ext_resource type="Texture2D" uid="uid://dkep5s71ledvx" path="res://art/spiraleDeath.png" id="4_wooje"]
+[ext_resource type="AudioStream" uid="uid://c8etw7fd2pojx" path="res://audio/sfx/g/explosionCrunch_000.ogg" id="5_fvpnq"]
+[ext_resource type="Texture2D" uid="uid://7n6evur8qw0t" path="res://art/exitArrow.png" id="6_c4qnn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fvpnq"]
 atlas = ExtResource("4_wooje")
@@ -307,6 +309,28 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_24o06"]
+atlas = ExtResource("6_c4qnn")
+region = Rect2(0, 0, 63, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ejn2"]
+atlas = ExtResource("6_c4qnn")
+region = Rect2(63, 0, 63, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a6lrr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24o06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ejn2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="table" type="Node2D"]
 script = ExtResource("1_b2f4q")
 
@@ -325,4 +349,19 @@ frame = 41
 frame_progress = 1.0
 centered = false
 
+[node name="BoomSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_fvpnq")
+volume_db = -10.0
+
+[node name="BackArrow" type="Area2D" parent="."]
+position = Vector2(45, 447)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BackArrow"]
+sprite_frames = SubResource("SpriteFrames_a6lrr")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BackArrow"]
+polygon = PackedVector2Array(-30, 1, -12, -14, -13, -4, -2, -6, 28, -6, 32, -3, 28, 12, 6, 4, -11, 4, -10, 14, -30, 3)
+
 [connection signal="animation_finished" from="BoomAnimation" to="." method="onBoomAnimationEnd"]
+[connection signal="mouse_entered" from="BackArrow" to="." method="backArrowHighLight"]
+[connection signal="mouse_exited" from="BackArrow" to="." method="backArrowDeHighLight"]

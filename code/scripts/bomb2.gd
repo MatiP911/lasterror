@@ -11,7 +11,7 @@ var clockEnabled = true
 
 var ledCheckList = ["Greek", "Letter", "Switch", "Phone"]
 var srobaActiveList = [1,2,3,4]
-
+var cableCheckList = ["White", "Purple", "Pink", "Yellow"]
 
 func _ready() -> void:
 	$Timer.start(bombDefuseTime)
@@ -39,6 +39,7 @@ func _ready() -> void:
 		
 	####Rotor####
 	$"Zagadka-Tarcza".connect("input_event", Callable(self, "OuterRotor"))
+	$"Zagadka-Tarcza/Clear".connect("input_event", Callable(self, "clearButtonClick"))
 
 	####Letter####
 	turnDownLetters(false)
@@ -74,20 +75,30 @@ func _ready() -> void:
 	$"Zagadka-Switch/Base/Inner".connect("input_event", Callable(self, "InnerRotorClick"))
 	
 	$"Zagadka-Switch/Base".visible = false
+	
+	####Timer cables####
+	$"TimerCables/Pink".connect("input_event", func(viewport, event, shape_idx): 
+							cableCut("Pink", viewport, event, shape_idx))
+	$"TimerCables/Yellow".connect("input_event", func(viewport, event, shape_idx): 
+							cableCut("Yellow", viewport, event, shape_idx))
+	$"TimerCables/White".connect("input_event", func(viewport, event, shape_idx): 
+							cableCut("White", viewport, event, shape_idx))
+	$"TimerCables/Purple".connect("input_event", func(viewport, event, shape_idx): 
+							cableCut("Purple", viewport, event, shape_idx))
 
 func _process(delta: float) -> void:
 	checkTime()
 	RotorDragRotation()
-	
+
 func boomButtonClick(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		$"BoomButton/BoomButtonClick".play()
 		if not ledCheckList.is_empty():
 			boom()
 			return
 		win()
 
 func boom() -> void:
-	print("BOOOM")
 	emit_signal("explosion")
 
 func win() -> void:
@@ -123,14 +134,34 @@ func checkTime() -> void:
 		$SecTens.frame = int(seconds / 10)
 		$MinUnits.frame = minutes % 10
 
+func mainTimerTimeOut():
+	clockEnabled = false
+	for i in range(0,3):
+		$"MinTens".frame = 13
+		$"MinUnits".frame = 14
+		$"SecTens".frame = 15
+		$"SecUnits".frame = 16
+		await get_tree().create_timer(0.5).timeout
+		$"MinTens".frame = 12
+		$"MinUnits".frame = 12
+		$"SecTens".frame = 12
+		$"SecUnits".frame = 12
+		await get_tree().create_timer(0.5).timeout
+	boom()
+
+
 func ledCheckListChecker():
 	if ledCheckList.rfind("Greek") == -1:
+		$"LEDs/LEDOn".play()
 		$"LEDs/White".visible = true
 	if ledCheckList.rfind("Letter") == -1:
+		$"LEDs/LEDOn".play()
 		$"LEDs/Pink".visible = true
 	if ledCheckList.rfind("Switch") == -1:
+		$"LEDs/LEDOn".play()
 		$"LEDs/Purple".visible = true
 	if ledCheckList.rfind("Phone") == -1:
+		$"LEDs/LEDOn".play()
 		$"LEDs/Orange".visible = true
 
 #####Greek puzzle#####
@@ -181,6 +212,7 @@ func srobaClick(number, viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if not scredriverActive:
 			return
+		$"Zagadka-Grecka/ScrewSound".play()
 		var srobaHandler = $"Zagadka-Grecka/Outer".find_child("Sroba"+str(number))
 		srobaHandler.find_child("Sprite").visible = false
 		srobaHandler.find_child("CollisionShape2D").disabled = true
@@ -226,6 +258,7 @@ func disturbeTimeOut(number: int):
 			return
 		$"MinTens".frame = numbersToGreek[number-1]
 		$"Zagadka-Grecka/DisturbeLED".visible = true
+		$"Zagadka-Grecka/DisturbeSound".play()
 		await get_tree().create_timer(0.5).timeout
 		$"MinTens".frame = 12
 		$"Zagadka-Grecka/DisturbeLED".visible = false
@@ -238,6 +271,7 @@ func disturbeTimeOut(number: int):
 	clockEnabled = true
 
 func checkGreekCombo():
+	$"ClickSound".play()
 	for i in range(0,currentCombo.size()):
 		if not currentCombo.get(i) == greekCombo.get(i):
 			currentCombo.clear()
@@ -248,7 +282,7 @@ func checkGreekCombo():
 
 var drawerTrans = Vector2(0.0,58.0)
 func openDrawer():
-	print("Opening")
+	$"Zagadka-Grecka/DrawerSound".play()
 	$"Zagadka-Grecka/Drawer".visible = true
 	move_object($"Zagadka-Grecka/Drawer", drawerTrans, 1.6)
 
@@ -262,6 +296,7 @@ var scredriverActive = false
 
 func screwdriverClick(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		$"Zagadka-Grecka/Drawer/PickUp".play()
 		$"Zagadka-Grecka/Drawer/ScrewDriver".visible = false
 		scredriverActive = true
 
@@ -331,6 +366,7 @@ func stopDrag():
 		var selectedNumber = ceil((rotationAngle-105.0)/25)
 		if selectedNumber > 0:
 			print(selectedNumber)
+			playSound(selectedNumber)
 			if not FourDigits.size() == 4:
 				FourDigits.append(selectedNumber)
 			renderX()
@@ -355,9 +391,15 @@ func checkCombo():
 	if checkIfSame(FourDigits, [4,7,8,6]):
 		ledCheckList.erase("Phone")
 		ledCheckListChecker()
+		$"Zagadka-Tarcza/LedYellow".visible = true
+		$"Zagadka-Tarcza/Calling".play()
+		return
 	if checkIfSame(FourDigits, numbersToGreek):
 		openDrawer()
-	print("No combo found")
+		$"Zagadka-Tarcza/LedWhite".visible = true
+		$"Zagadka-Tarcza/Calling".play()
+		return
+	$"Zagadka-Tarcza/Unavilable".play()
 	FourDigits.clear()
 
 func checkIfSame(check, combo) -> bool:
@@ -366,6 +408,16 @@ func checkIfSame(check, combo) -> bool:
 			return false
 	return true
 		
+func playSound(number: int):
+	if number == 10:
+		for i in range(0,6):
+			$"Zagadka-Tarcza/ClackSound".play()
+			await get_tree().create_timer(0.2).timeout
+		return
+	for i in range(0,number):
+			$"Zagadka-Tarcza/ClackSound".play()
+			await get_tree().create_timer(0.2).timeout
+
 func rotorHighLight():
 	$"Zagadka-Tarcza/Sprite".frame = 1
 
@@ -373,6 +425,22 @@ func rotorDeHighLight():
 	$"Zagadka-Tarcza/Sprite".frame = 0
 	stopDrag()
 
+func clearButtonHighlight():
+	$"Zagadka-Tarcza/Clear/Sprite".frame = 1
+	
+func clearButtonDeHighlight():
+	$"Zagadka-Tarcza/Clear/Sprite".frame = 0
+
+func clearButtonClick(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			$"ClickSound".play()
+			FourDigits.clear()
+			$"Zagadka-Tarcza/Clear/Sprite".frame=2
+			for i in range(1,5):
+				$"Zagadka-Tarcza/Display".find_child(str(i)+"x").visible = false
+		else:
+			$"Zagadka-Tarcza/Clear/Sprite".frame = 1
 
 ####Letter puzzle####
 var letterShift = [1,3,4,0]
@@ -380,6 +448,7 @@ func letterOrientationButtonPress(number: int, orientation: String, viewport, ev
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		$"Zagadka-Litery".find_child(str(number)).find_child(orientation).find_child("Sprite").frame = 1
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		$"ClickSound".play()
 		$"Zagadka-Litery".find_child(str(number)).find_child(orientation).find_child("Sprite").frame = 2
 		var frame = $"Zagadka-Litery".find_child(str(number)).find_child("Sprite-Letter").frame
 		if frame == 0 and orientation == "Down":
@@ -420,6 +489,7 @@ func onLetterTimerTimeout() -> void:
 	turnDownLetters(false)
 
 func onLEDFlashTimeout() -> void:
+	$"Zagadka-Litery/LetterBip".play()
 	$"Zagadka-Litery/LEDs/FlashTimer".visible = true
 	await get_tree().create_timer(0.2).timeout
 	$"Zagadka-Litery/LEDs/FlashTimer".visible = false
@@ -460,6 +530,7 @@ var switchCableBottomOutState = [0,0,0]
 
 
 func openFlap():
+	$"Zagadka-Grecka/DrawerSound".play()
 	$"Zagadka-Switch/Base".visible = true
 	move_object($"Zagadka-Switch/Flap", flapTransform, 1.6)
 	await get_tree().create_timer(0.3).timeout
@@ -493,9 +564,13 @@ func checkSwitchCableBottom():
 	$"Zagadka-Switch/Base/LEDs/R8".visible = switchCableBottomOutState.get(2)
 
 	checkSwitchCableUpper()
-	
+
+var CircuitBurn = false
 func blowCircut(number: int):
 	$"Zagadka-Switch/Base/CableSplot".find_child("Splot"+str(number)).visible = true
+	if CircuitBurn == false:
+		$"Zagadka-Switch/Base/CirucitBurn".play()
+		CircuitBurn = true
 
 func checkSwitchCableUpper():
 	var cableTurnOnCheck = ["1","2","3"]
@@ -583,6 +658,8 @@ func switchDeHighLight(number: int):
 func switchClick(number: int, viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var node = $"Zagadka-Switch/Switches".find_child("Switch"+str(number))
+		$"Zagadka-Switch/Switches/SwitchClick".play()
+		
 		var nodeTrans = node.position
 		node.find_child("Sprite").frame = (node.find_child("Sprite").frame+2)%4
 		if node.find_child("Sprite").frame < 2:
@@ -633,6 +710,7 @@ func OuterRotorClick(viewport, event, shape_idx):
 				return
 			node.rotation_degrees = (int(node.rotation_degrees)-30)%360
 		#$"Zagadka-Switch/Base/Outer/F1".global_rotation_degrees = 0.0
+		$"Zagadka-Tarcza/ClackSound".play()
 		checkSwitchCableUpper()
 
 
@@ -649,4 +727,81 @@ func InnerRotorClick(viewport, event, shape_idx):
 				innerState = 11
 				return
 			node.rotation_degrees = (int(node.rotation_degrees)-30)%360
+		$"Zagadka-Tarcza/ClackSound".play()
 		checkSwitchCableUpper()
+
+
+####Timer Cable####
+func cableCut(name: String, viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		$"TimerCables".find_child(name).find_child("Sprite").frame = 2
+		$"TimerCables".find_child(name).find_child("CollisionPolygon2D").disabled = true
+		$"TimerCables/CableCut".play()
+		if name == "White":
+			var whiteTime = 230
+			if floor($"Timer".time_left) == whiteTime:
+				cableCheckList.erase("White")
+				checkCable()
+				return
+			if ledCheckList.find("Greek") == -1:
+				showTime(whiteTime)
+				return
+			boom()
+		if name == "Yellow":
+			var yellowTime = 130
+			if floor($"Timer".time_left) == yellowTime:
+				cableCheckList.erase("Yellow")
+				checkCable()
+				return
+			if ledCheckList.find("Phone") == -1:
+				showTime(yellowTime)
+				return
+			boom()
+		if name == "Purple":
+			var purpleTime = 40
+			if floor($"Timer".time_left) == purpleTime:
+				cableCheckList.erase("Purple")
+				checkCable()
+				return
+			if ledCheckList.find("Switch") == -1:
+				showTime(purpleTime)
+				return
+			boom()
+		if name == "Pink":
+			var pinkTime = 170
+			if floor($"Timer".time_left) == pinkTime:
+				cableCheckList.erase("Pink")
+				checkCable()
+				return
+			if ledCheckList.find("Letter") == -1:
+				showTime(pinkTime)
+				return
+			boom()
+	
+func showTime(time):
+	clockEnabled = false
+	var seconds = time % 60
+	var minutes = int(time / 60)
+	$"MinTens".frame = 12
+	for i in range(0, 3):
+		$SecUnits.frame = seconds % 10
+		$SecTens.frame = int(seconds / 10)
+		$MinUnits.frame = minutes % 10
+		await get_tree().create_timer(0.5).timeout
+		$SecUnits.frame = 12
+		$SecTens.frame = 12
+		$MinUnits.frame = 12
+		await get_tree().create_timer(0.5).timeout
+	boom()
+
+func checkCable():
+	print(cableCheckList)
+	if cableCheckList.is_empty():
+		win()
+
+func cableHighlight(name: String):
+	$"TimerCables".find_child(name).find_child("Sprite").frame = 1
+
+func cableDeHighlight(name: String):
+	if not $"TimerCables".find_child(name).find_child("Sprite").frame == 2:
+		$"TimerCables".find_child(name).find_child("Sprite").frame = 0

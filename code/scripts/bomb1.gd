@@ -3,6 +3,8 @@ extends Node2D
 @export var bombDefuseTime = 25
 @export var LEDTimerMoment = 4
 
+signal explosion
+
 var timerEnable = true
 
 var puzzle1RotorPos = 1
@@ -32,8 +34,7 @@ func _process(delta: float) -> void:
 	checkTime()
 
 func boom() -> void:
-	print("BOOOM")
-	get_tree().reload_current_scene()
+	emit_signal("explosion")
 
 func win() -> void:
 	var timeLeft = int($Timer.get_time_left())
