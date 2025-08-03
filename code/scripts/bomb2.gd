@@ -115,6 +115,7 @@ func win() -> void:
 	var minutes = int(timeLeft / 60)
 	$Timer.stop()
 	$Dots.stop()
+	Global.bombDefused = true
 	
 	for i in range(3):
 		clockEnabled = false

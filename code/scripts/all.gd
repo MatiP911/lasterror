@@ -2,8 +2,15 @@ extends Node2D
 
 func _ready():
 	if Global.skipCutscene == true:
-		$Bomb1.visible = true
-		$Bomb2.visible = true
+		if Global.tutorialBombDefused == false:
+			$Bomb1.visible = true
+			Global.tutorialBombDefused = true
+		else:
+			$Bomb2.visible = true
+		if Global.bombDefused == true:
+			$Bomb1.visible = false
+			$Bomb2.visible = false
+			$WinScreen.visible = true
 	else:
 		$Notatka.visible = true
 		Global.skipCutscene = true
