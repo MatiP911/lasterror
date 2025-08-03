@@ -5,6 +5,7 @@ extends Node2D
 @export var disturberTimers = ['nothing', 20, 50, 90, 140]
 
 signal explosion
+signal defused
 
 var clockEnabled = true
 
@@ -116,7 +117,7 @@ func win() -> void:
 	$Timer.stop()
 	$Dots.stop()
 	Global.bombDefused = true
-	
+	emit_signal("defused")
 	for i in range(3):
 		clockEnabled = false
 		$SecUnits.frame = 12

@@ -7,6 +7,7 @@ func _ready() -> void:
 	bombNode = $Bomb2
 	
 	$BackArrow.connect("input_event", Callable(self, "backArrowClick"))
+	$Bomb2.connect("defused", Callable(self, "defuse"))
 
 func boom():
 	$BoomAnimation.visible = true
@@ -22,7 +23,12 @@ func boom():
 	
 	bombNode.set_position(nodeTrans)
 	bombNode.connect("explosion", Callable(self, "boom"))
+	bombNode.connect("defused", Callable(self, "defuse"))
 	
+func defuse():
+	$WinScreen.visible = true
+	await get_tree().create_timer(5.0).timeout
+	get_tree().change_scene_to_file("res://level/scene/all.tscn")
 
 func onBoomAnimationEnd():
 	$BoomAnimation.visible = false
@@ -36,3 +42,9 @@ func backArrowHighLight():
 
 func backArrowDeHighLight():
 	$"BackArrow/Sprite".frame = 0
+
+func defuse():
+	$WinScreen.visible = true
+	await get_tree().create_timer(5.0).timeout
+	get_tree().change_scene_to_file("res://level/scene/all.tscn")
+	

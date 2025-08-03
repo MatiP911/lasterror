@@ -1,9 +1,10 @@
 extends Node2D
 
 @export var bombDefuseTime = 25
-@export var LEDTimerMoment = 4
+@export var LEDTimerMoment = 10
 
 signal explosion
+signal defused
 
 var timerEnable = true
 
@@ -45,6 +46,7 @@ func win() -> void:
 	$Dots.stop()
 	
 	
+	emit_signal("defused")
 	for i in range(3):
 		timerEnable=false
 		$SecUnits.frame = 12

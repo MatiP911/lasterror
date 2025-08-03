@@ -28,6 +28,7 @@ func creditsClick(viewport, event, shape_idx):
 		menuActive = false
 		fadeOut($Menu, 1.0)
 		$Menu.visible = false
+		fadeIn($Menu, 1.0)
 		$Credits.visible = true
 		
 
