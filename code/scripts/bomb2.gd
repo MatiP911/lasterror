@@ -8,6 +8,8 @@ signal explosion
 
 var clockEnabled = true
 
+var outerState = 2
+var innerState = 3
 
 var ledCheckList = ["Greek", "Letter", "Switch", "Phone"]
 var srobaActiveList = [1,2,3,4]
@@ -75,6 +77,12 @@ func _ready() -> void:
 	$"Zagadka-Switch/Base/Inner".connect("input_event", Callable(self, "InnerRotorClick"))
 	
 	$"Zagadka-Switch/Base".visible = false
+	
+	#initial rotation
+	for i in range(0,outerState):
+		$"Zagadka-Switch/Base/Outer".rotation_degrees = (int($"Zagadka-Switch/Base/Outer".rotation_degrees)-30)%360
+	for i in range(0,innerState):
+		$"Zagadka-Switch/Base/Inner".rotation_degrees = (int($"Zagadka-Switch/Base/Inner".rotation_degrees)-30)%360
 	
 	####Timer cables####
 	$"TimerCables/Pink".connect("input_event", func(viewport, event, shape_idx): 
@@ -681,8 +689,7 @@ func InnerRotorDeHighLight():
 	$"Zagadka-Switch/Base/Inner/Sprite".frame = 2
 	$"Zagadka-Switch/Base/Outer/Sprite".frame = 1
 
-var outerState = 0
-var innerState = 0
+
 
 func OuterRotorClick(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and (event.button_index == MOUSE_BUTTON_LEFT or event.button_index == MOUSE_BUTTON_RIGHT):
@@ -712,6 +719,7 @@ func OuterRotorClick(viewport, event, shape_idx):
 		#$"Zagadka-Switch/Base/Outer/F1".global_rotation_degrees = 0.0
 		$"Zagadka-Tarcza/ClackSound".play()
 		checkSwitchCableUpper()
+
 
 
 func InnerRotorClick(viewport, event, shape_idx):
