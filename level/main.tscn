@@ -1,12 +1,135 @@
-[gd_scene load_steps=4 format=3 uid="uid://dquqluffbtt54"]
+[gd_scene load_steps=17 format=3 uid="uid://dquqluffbtt54"]
 
-[ext_resource type="PackedScene" uid="uid://cg7x61rqnlr7e" path="res://level/scene/all.tscn" id="1_0ukcc"]
 [ext_resource type="Script" uid="uid://bq7vd7fxfewjw" path="res://code/scripts/main.gd" id="1_414cb"]
-[ext_resource type="PackedScene" uid="uid://doiru2y5bbllm" path="res://level/scene/table1.tscn" id="2_nt2wp"]
+[ext_resource type="Texture2D" uid="uid://o1ob63xj3mrd" path="res://art/bg-all.png" id="2_qh04p"]
+[ext_resource type="Texture2D" uid="uid://x7lh7psnge1a" path="res://art/dark-fade.png" id="3_7vc00"]
+[ext_resource type="Texture2D" uid="uid://uphthqy7o4x" path="res://art/menu/main.png" id="3_k8f8b"]
+[ext_resource type="Texture2D" uid="uid://crjd3r40ngsim" path="res://art/menu/menuUnderLines.png" id="4_7vc00"]
+[ext_resource type="AudioStream" uid="uid://bmb5dhor4cjfn" path="res://audio/sfx/g/1.mp3" id="6_7vc00"]
+[ext_resource type="Texture2D" uid="uid://ksqcndj4gdpv" path="res://art/menu/credits.png" id="7_klgnm"]
+[ext_resource type="Texture2D" uid="uid://d4du32u4ch32m" path="res://art/menu/back.png" id="8_j70lj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klgnm"]
+atlas = ExtResource("4_7vc00")
+region = Rect2(0, 0, 175, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j70lj"]
+atlas = ExtResource("4_7vc00")
+region = Rect2(175, 0, 175, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry1g7"]
+atlas = ExtResource("4_7vc00")
+region = Rect2(350, 0, 175, 11)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tdkxd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klgnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j70lj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ry1g7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fh3di"]
+size = Vector2(150, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epufq"]
+size = Vector2(203, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ns06i"]
+size = Vector2(123, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ry1g7"]
+size = Vector2(108, 26)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_414cb")
 
-[node name="table" parent="." instance=ExtResource("2_nt2wp")]
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("2_qh04p")
+centered = false
 
-[node name="all" parent="." instance=ExtResource("1_0ukcc")]
+[node name="Fade" type="Sprite2D" parent="."]
+texture = ExtResource("3_7vc00")
+centered = false
+
+[node name="Menu" type="Node2D" parent="."]
+position = Vector2(108, 393)
+
+[node name="Buttons" type="Sprite2D" parent="Menu"]
+texture = ExtResource("3_k8f8b")
+
+[node name="Start" type="Area2D" parent="Menu"]
+position = Vector2(15, -32)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Menu/Start"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_tdkxd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Start"]
+position = Vector2(-39, -19.5)
+shape = SubResource("RectangleShape2D_fh3di")
+
+[node name="Credits" type="Area2D" parent="Menu"]
+position = Vector2(13, 20)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Menu/Credits"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_tdkxd")
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Credits"]
+position = Vector2(-12.5, -19.5)
+shape = SubResource("RectangleShape2D_epufq")
+
+[node name="Quit" type="Area2D" parent="Menu"]
+position = Vector2(-1, 75)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Menu/Quit"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_tdkxd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Quit"]
+position = Vector2(-33.5, -18.5)
+shape = SubResource("RectangleShape2D_ns06i")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_7vc00")
+volume_db = -10.0
+autoplay = true
+
+[node name="Credits" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite2D" parent="Credits"]
+texture = ExtResource("7_klgnm")
+centered = false
+
+[node name="Back" type="Area2D" parent="Credits"]
+
+[node name="Sprite" type="Sprite2D" parent="Credits/Back"]
+visible = false
+texture = ExtResource("8_j70lj")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Credits/Back"]
+position = Vector2(88, 440)
+shape = SubResource("RectangleShape2D_ry1g7")
+
+[connection signal="mouse_entered" from="Menu/Start" to="." method="menuButtonHighLight" binds= ["Start"]]
+[connection signal="mouse_exited" from="Menu/Start" to="." method="menuButtonDeHighLight" binds= ["Start"]]
+[connection signal="mouse_entered" from="Menu/Credits" to="." method="menuButtonHighLight" binds= ["Credits"]]
+[connection signal="mouse_exited" from="Menu/Credits" to="." method="menuButtonDeHighLight" binds= ["Credits"]]
+[connection signal="mouse_entered" from="Menu/Quit" to="." method="menuButtonHighLight" binds= ["Quit"]]
+[connection signal="mouse_exited" from="Menu/Quit" to="." method="menuButtonDeHighLight" binds= ["Quit"]]
+[connection signal="finished" from="Music" to="." method="musicLoop"]
+[connection signal="mouse_entered" from="Credits/Back" to="." method="backHighlight"]
+[connection signal="mouse_exited" from="Credits/Back" to="." method="backDeHighlight"]
