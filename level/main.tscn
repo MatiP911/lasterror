@@ -103,7 +103,7 @@ shape = SubResource("RectangleShape2D_ns06i")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_7vc00")
-volume_db = -10.0
+volume_db = -15.0
 autoplay = true
 
 [node name="Credits" type="Node2D" parent="."]

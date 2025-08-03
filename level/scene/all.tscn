@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cg7x61rqnlr7e"]
+[gd_scene load_steps=7 format=3 uid="uid://cg7x61rqnlr7e"]
 
 [ext_resource type="Script" uid="uid://cpfo0xfsshghm" path="res://code/scripts/all.gd" id="1_8p621"]
 [ext_resource type="Texture2D" uid="uid://o1ob63xj3mrd" path="res://art/bg-all.png" id="2_nt2wp"]
+[ext_resource type="Texture2D" uid="uid://b30536h4rqhd2" path="res://art/list.png" id="3_el6bx"]
+[ext_resource type="Texture2D" uid="uid://cex12v3kt1bxo" path="res://art/notka.png" id="3_w1u2o"]
 [ext_resource type="Texture2D" uid="uid://dqcp2uy13ap16" path="res://art/bomb1.png" id="4_14vog"]
 [ext_resource type="Texture2D" uid="uid://d2bgx267rbd2u" path="res://art/bomb2.png" id="5_w1u2o"]
 
@@ -12,7 +14,34 @@ script = ExtResource("1_8p621")
 texture = ExtResource("2_nt2wp")
 centered = false
 
+[node name="List" type="Area2D" parent="."]
+visible = false
+position = Vector2(8, 40)
+metadata/_edit_group_ = true
+
+[node name="Collision" type="CollisionPolygon2D" parent="List"]
+position = Vector2(-453, 58)
+polygon = PackedVector2Array(429, 397, 1099, 387, 1102, -92, 442, -101)
+
+[node name="Sprite" type="Sprite2D" parent="List"]
+position = Vector2(326, 230)
+texture = ExtResource("3_el6bx")
+
+[node name="Notatka" type="Area2D" parent="."]
+visible = false
+position = Vector2(4, 20)
+metadata/_edit_group_ = true
+
+[node name="Collision" type="CollisionPolygon2D" parent="Notatka"]
+position = Vector2(-453, 58)
+polygon = PackedVector2Array(668, 393, 923, 390, 890, 254, 694, 252)
+
+[node name="Sprite" type="Sprite2D" parent="Notatka"]
+position = Vector2(326, 230)
+texture = ExtResource("3_w1u2o")
+
 [node name="Bomb2" type="Area2D" parent="."]
+visible = false
 position = Vector2(2, 10)
 metadata/_edit_group_ = true
 
@@ -25,6 +54,7 @@ position = Vector2(326, 230)
 texture = ExtResource("4_14vog")
 
 [node name="Bomb1" type="Area2D" parent="."]
+visible = false
 position = Vector2(2, 10)
 metadata/_edit_group_ = true
 
