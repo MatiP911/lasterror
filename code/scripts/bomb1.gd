@@ -63,6 +63,9 @@ func win() -> void:
 		await get_tree().create_timer(1.0).timeout
 	print("WIN")
 	
+func loopMusic():
+	await get_tree().create_timer(1.5).timeout
+	$Music.play()
 
 func boomButtonPress(viewport, event, shape_idx) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

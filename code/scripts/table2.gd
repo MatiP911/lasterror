@@ -42,9 +42,4 @@ func backArrowHighLight():
 
 func backArrowDeHighLight():
 	$"BackArrow/Sprite".frame = 0
-
-func defuse():
-	$WinScreen.visible = true
-	await get_tree().create_timer(5.0).timeout
-	get_tree().change_scene_to_file("res://level/scene/all.tscn")
 	

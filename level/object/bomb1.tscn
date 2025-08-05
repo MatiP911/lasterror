@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://bgj5tmuvn154g"]
+[gd_scene load_steps=64 format=3 uid="uid://bgj5tmuvn154g"]
 
 [ext_resource type="Texture2D" uid="uid://bg18dqbcpkq65" path="res://art/bomb-empty.png" id="1_aafb6"]
 [ext_resource type="Script" uid="uid://dkvr74rycwe8d" path="res://code/scripts/bomb1.gd" id="1_j7fs1"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://d6imgchlcngo" path="res://art/zagadka bomba 1/bomba1-kabel-zagadka-4-broken.png" id="14_n8pen"]
 [ext_resource type="AudioStream" uid="uid://bhf6856qqrmdf" path="res://audio/sfx/g/1switch8.ogg" id="18_f55v8"]
 [ext_resource type="AudioStream" uid="uid://dsvqa32hsye3e" path="res://audio/sfx/wireCut.mp3" id="20_ytkfl"]
+[ext_resource type="AudioStream" uid="uid://c402ol0ifir8t" path="res://audio/sfx/chill-drum-loop-6887.mp3" id="21_nfo83"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_de5ln"]
 atlas = ExtResource("3_yd4hi")
@@ -466,6 +467,11 @@ stream = ExtResource("18_f55v8")
 stream = ExtResource("20_ytkfl")
 volume_db = -6.0
 
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_nfo83")
+volume_db = -10.0
+autoplay = true
+
 [connection signal="mouse_entered" from="BoomButton" to="." method="_on_boom_button_mouse_entered"]
 [connection signal="mouse_exited" from="BoomButton" to="." method="_on_boom_button_mouse_exited"]
 [connection signal="timeout" from="LEDGlow/LEDTimer" to="." method="LedTimerTimeOut"]
@@ -481,3 +487,4 @@ volume_db = -6.0
 [connection signal="mouse_exited" from="Puzzle1/Cable3" to="." method="_on_cable_3_mouse_exited"]
 [connection signal="mouse_entered" from="Puzzle1/Cable4" to="." method="_on_cable_4_mouse_entered"]
 [connection signal="mouse_exited" from="Puzzle1/Cable4" to="." method="_on_cable_4_mouse_exited"]
+[connection signal="finished" from="Music" to="." method="loopMusic"]

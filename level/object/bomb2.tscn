@@ -1,4 +1,4 @@
-[gd_scene load_steps=181 format=3 uid="uid://crhywhygg7quc"]
+[gd_scene load_steps=182 format=3 uid="uid://crhywhygg7quc"]
 
 [ext_resource type="Script" uid="uid://emh6547smh7l" path="res://code/scripts/bomb2.gd" id="1_vws3h"]
 [ext_resource type="Texture2D" uid="uid://bpshnur8cnyqo" path="res://art/bomba2-defuse.png" id="2_tspkl"]
@@ -47,6 +47,7 @@
 [ext_resource type="AudioStream" uid="uid://bxrh3mf64m6rb" path="res://audio/sfx/lampka-cut.wav" id="38_81grx"]
 [ext_resource type="AudioStream" uid="uid://dwhwrq0dvqn54" path="res://audio/sfx/g/1click4.ogg" id="38_f08lq"]
 [ext_resource type="AudioStream" uid="uid://cc32hree7yw2w" path="res://audio/sfx/bip2.wav" id="40_ps0lr"]
+[ext_resource type="AudioStream" uid="uid://c402ol0ifir8t" path="res://audio/sfx/chill-drum-loop-6887.mp3" id="48_xx4m7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v7ois"]
 atlas = ExtResource("3_02eyw")
@@ -1660,6 +1661,11 @@ stream = ExtResource("40_ps0lr")
 volume_db = -7.0
 pitch_scale = 0.3
 
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("48_xx4m7")
+volume_db = -10.0
+autoplay = true
+
 [connection signal="timeout" from="Timer" to="." method="mainTimerTimeOut"]
 [connection signal="mouse_entered" from="Zagadka-Tarcza" to="." method="rotorHighLight"]
 [connection signal="mouse_exited" from="Zagadka-Tarcza" to="." method="rotorDeHighLight"]
@@ -1727,3 +1733,4 @@ pitch_scale = 0.3
 [connection signal="mouse_exited" from="TimerCables/Pink" to="." method="cableDeHighlight" binds= ["Pink"]]
 [connection signal="mouse_entered" from="TimerCables/Yellow" to="." method="cableHighlight" binds= ["Yellow"]]
 [connection signal="mouse_exited" from="TimerCables/Yellow" to="." method="cableDeHighlight" binds= ["Yellow"]]
+[connection signal="finished" from="Music" to="." method="loopMusic"]

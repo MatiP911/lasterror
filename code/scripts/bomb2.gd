@@ -99,6 +99,10 @@ func _process(delta: float) -> void:
 	checkTime()
 	RotorDragRotation()
 
+func loopMusic():
+	await get_tree().create_timer(1.5).timeout
+	$Music.play()
+
 func boomButtonClick(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		$"BoomButton/BoomButtonClick".play()
